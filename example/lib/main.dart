@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:phone_number/phone_number.dart';
 
-void main() => runApp(new MyApp());
+void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
   @override
-  _MyAppState createState() => new _MyAppState();
+  _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
@@ -25,7 +25,13 @@ class _MyAppState extends State<MyApp> {
     String platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      platformVersion = await PhoneNumber.parse("", region: "");
+      final parsed = await PhoneNumber.parse("0670112233", region: "FR");
+      platformVersion = """
+      type: ${parsed['type']}
+      e164: ${parsed['e164']} 
+      international: ${parsed['international']}
+      national: ${parsed['national']}
+      """;
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -42,14 +48,14 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      home: new Scaffold(
-        appBar: new AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: new Center(
-          child: new Text('Running on: $_platformVersion\n'),
-        ),
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Plugin example app')),
+        body: Center(
+            child: Text(
+          _platformVersion,
+          textAlign: TextAlign.left,
+        )),
       ),
     );
   }

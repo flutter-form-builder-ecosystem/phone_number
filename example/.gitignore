@@ -1,6 +1,5 @@
 # Miscellaneous
 *.class
-*.lock
 *.log
 *.pyc
 *.swp
@@ -24,9 +23,10 @@
 .dart_tool/
 .flutter-plugins
 .packages
+pubspec.lock
 .pub-cache/
 .pub/
-build/
+/build/
 
 # Android related
 **/android/**/gradle-wrapper.jar

@@ -1,11 +1,11 @@
 name: phone_number
 description: Flutter plugin for phone number validation
-version: 0.1.1
+version: 0.2.0
 author: Julien Vignali <contact@julienvignali.com>
 homepage: https://github.com/nashfive/phone_number
 
 environment:
-  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+  sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -13,5 +13,6 @@ dependencies:
 
 flutter:
   plugin:
-    androidPackage: com.julienvignali.flutter.phonenumber
+    androidPackage: com.julienvignali.phone_number
     pluginClass: PhoneNumberPlugin
+
