@@ -1,0 +1,34 @@
+PODS:
+  - Flutter (1.0.0)
+  - phone_number (0.0.1):
+    - Flutter
+    - PhoneNumberKit (~> 2.6.0)
+  - PhoneNumberKit (2.6.0):
+    - PhoneNumberKit/PhoneNumberKitCore (= 2.6.0)
+    - PhoneNumberKit/UIKit (= 2.6.0)
+  - PhoneNumberKit/PhoneNumberKitCore (2.6.0)
+  - PhoneNumberKit/UIKit (2.6.0):
+    - PhoneNumberKit/PhoneNumberKitCore
+
+DEPENDENCIES:
+  - Flutter (from `.symlinks/flutter/ios`)
+  - phone_number (from `.symlinks/plugins/phone_number/ios`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - PhoneNumberKit
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: ".symlinks/flutter/ios"
+  phone_number:
+    :path: ".symlinks/plugins/phone_number/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 58dd7d1b27887414a370fcccb9e645c08ffd7a6a
+  phone_number: 1435ddff3e6e3aa29bb154483fc823b8ace02178
+  PhoneNumberKit: 167ee1f0bbb6efce7c62559e620eae745595532f
+
+PODFILE CHECKSUM: ebd43b443038e611b86ede96e613bd6033c49497
+
+COCOAPODS: 1.6.1
