@@ -25,12 +25,17 @@ class _MyAppState extends State<MyApp> {
     String platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      final parsed = await PhoneNumber.parse("0670112233", region: "FR");
+      final parsed = await PhoneNumber.parse("49988151701", region: "BR");
       platformVersion = """
       type: ${parsed['type']}
       e164: ${parsed['e164']} 
       international: ${parsed['international']}
       national: ${parsed['national']}
+      """;
+
+      final formatted = await PhoneNumber.format('499881517', 'BR');
+      platformVersion += """
+      parcially: ${formatted['formatted']}
       """;
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
