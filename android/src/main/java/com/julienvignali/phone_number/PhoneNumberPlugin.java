@@ -1,5 +1,8 @@
 package com.julienvignali.phone_number;
 
+import android.telephony.PhoneNumberUtils;
+
+import com.google.i18n.phonenumbers.AsYouTypeFormatter;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberType;
@@ -24,8 +27,37 @@ public class PhoneNumberPlugin implements MethodCallHandler {
     public void onMethodCall(MethodCall call, Result result) {
         if (call.method.equals("parse")) {
             parse(call, result);
+        } else if(call.method.equals("format")) {
+            format(call, result);
         } else {
             result.notImplemented();
+        }
+    }
+
+    private void format(MethodCall call, Result result) {
+        final String region = call.argument("region");
+        final String number = call.argument("string");
+
+        if(number == null) {
+            result.error("InvalidParameters", "Invalid 'string' parameter.", null);
+        }
+
+        try {
+            final PhoneNumberUtil util = PhoneNumberUtil.getInstance();
+            final AsYouTypeFormatter formatter = util.getAsYouTypeFormatter(region);
+
+            String formatted = "";
+            formatter.clear();
+            for (char character : number.toCharArray()) {
+                formatted = formatter.inputDigit(character);
+            }
+
+            HashMap<String, String> res = new HashMap<>();
+            res.put("formatted", formatted);
+
+            result.success(res);
+        } catch (Exception exception) {
+            result.error("InvalidNumber", "Number " + number + " is invalid", null);
         }
     }
 

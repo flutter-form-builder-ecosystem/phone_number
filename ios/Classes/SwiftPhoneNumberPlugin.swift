@@ -11,12 +11,39 @@ public class SwiftPhoneNumberPlugin: NSObject, FlutterPlugin {
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch(call.method) {
         case "parse": parse(call, result: result)
+        case "format": format(call, result: result)
         default:
             result(FlutterMethodNotImplemented)
         }
     }
 
     private let kit = PhoneNumberKit()
+
+    private func format(_ call: FlutterMethodCall, result: FlutterResult) {
+        guard
+            let arguments = call.arguments as? [String : Any],
+            let number = arguments["string"] as? String,
+            let region = arguments["region"] as? String
+            else {
+                result(FlutterError(code: "InvalidArgument",
+                                    message: "The 'string' argument is missing.",
+                                    details: nil))
+                return
+        }
+        
+        do {
+            let formatted = PartialFormatter(defaultRegion: region).formatPartial(number)
+            let res:[String: String] = [
+                "formatted": formatted
+            ]
+
+            result(res)
+        } catch {
+            result(FlutterError(code: "InvalidNumber",
+                                message:"Failed to parse phone number string '\(number)'.",
+                                details: nil))
+        }
+    }
 
     private func parse(_ call: FlutterMethodCall, result: FlutterResult) {
         guard

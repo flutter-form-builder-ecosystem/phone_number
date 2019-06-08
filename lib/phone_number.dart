@@ -10,4 +10,10 @@ class PhoneNumber {
     final result = await _channel.invokeMethod("parse", args);
     return result;
   }
+
+  static Future<dynamic> format(String string, String region) async {
+    final args = {"string": string, "region": region};
+    final result = await _channel.invokeMethod("format", args);
+    return result;
+  }
 }
