@@ -1,3 +1,6 @@
+## 0.3.0
+* Add partial number formatting
+
 ## 0.2.0
 * Upgrade to libphonenumber 8.10.11 & PhoneNumberKit 2.6.0
 * Refactor to AndroidX
