@@ -31,6 +31,7 @@ class _MyAppState extends State<MyApp> {
       e164: ${parsed['e164']} 
       international: ${parsed['international']}
       national: ${parsed['national']}
+      country code: ${parsed['country_code']}
       """;
 
       final formatted = await PhoneNumber.format('499881517', 'BR');
