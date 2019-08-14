@@ -78,7 +78,9 @@ public class SwiftPhoneNumberPlugin: NSObject, FlutterPlugin {
                 "type": phoneNumber.type.toString(),
                 "e164": kit.format(phoneNumber, toType: .e164),
                 "international": kit.format(phoneNumber, toType: .international, withPrefix: true),
-                "national": kit.format(phoneNumber, toType: .national)
+                "national": kit.format(phoneNumber, toType: .national),
+                "country_code": String(phoneNumber.countryCode),
+                "national_number": String(phoneNumber.nationalNumber)
             ]
 
             result(res)

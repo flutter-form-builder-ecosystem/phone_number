@@ -85,6 +85,8 @@ public class PhoneNumberPlugin implements MethodCallHandler {
                         put("e164", util.format(phoneNumber, PhoneNumberUtil.PhoneNumberFormat.E164));
                         put("international", util.format(phoneNumber, PhoneNumberUtil.PhoneNumberFormat.INTERNATIONAL));
                         put("national", util.format(phoneNumber, PhoneNumberUtil.PhoneNumberFormat.NATIONAL));
+                        put("country_code", String.valueOf(phoneNumber.getCountryCode()));
+                        put("national_number", String.valueOf(phoneNumber.getNationalNumber()));
                     }};
                     result.success(res);
                 } else {
