@@ -1,3 +1,6 @@
+## 0.3.1
+* Add support for phone number's countryCode and nationalNumber
+
 ## 0.3.0
 * Add partial number formatting
 

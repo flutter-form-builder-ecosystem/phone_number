@@ -3,7 +3,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'phone_number'
-  s.version          = '0.0.1'
+  s.version          = '0.3.1'
   s.summary          = 'Flutter plugin for phone number validation'
   s.description      = <<-DESC
 Flutter plugin for phone number validation
