@@ -1,7 +1,5 @@
 package com.julienvignali.phone_number;
 
-import android.telephony.PhoneNumberUtils;
-
 import com.google.i18n.phonenumbers.AsYouTypeFormatter;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
@@ -9,6 +7,7 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberType;
 import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 
 import java.util.HashMap;
+import java.util.List;
 
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -27,7 +26,9 @@ public class PhoneNumberPlugin implements MethodCallHandler {
     public void onMethodCall(MethodCall call, Result result) {
         if (call.method.equals("parse")) {
             parse(call, result);
-        } else if(call.method.equals("format")) {
+        } else if (call.method.equals("parse_list")) {
+            parseList(call, result);
+        } else if (call.method.equals("format")) {
             format(call, result);
         } else {
             result.notImplemented();
@@ -38,7 +39,7 @@ public class PhoneNumberPlugin implements MethodCallHandler {
         final String region = call.argument("region");
         final String number = call.argument("string");
 
-        if(number == null) {
+        if (number == null) {
             result.error("InvalidParameters", "Invalid 'string' parameter.", null);
         }
 
@@ -61,13 +62,14 @@ public class PhoneNumberPlugin implements MethodCallHandler {
         }
     }
 
-    private void parse(MethodCall call, Result result) {
-        String region = call.argument("region");
-        String string = call.argument("string");
+    private HashMap<String, String> parseStringAndRegion(String string, String region, final PhoneNumberUtil util) {
+        try {
+            final PhoneNumber phoneNumber = util.parse(string, region);
 
-        if (string == null || string.isEmpty()) {
-            result.error("InvalidParameters", "Invalid 'string' parameter.", null);
-        } else {
+            if (!util.isValidNumber(phoneNumber)) {
+                return null;
+            }
+
             // Try to parse the string to a phone number for a given region.
 
             // If the parsing is successful, we return a map containing :
@@ -75,27 +77,62 @@ public class PhoneNumberPlugin implements MethodCallHandler {
             // - the number in the international format
             // - the number formatted as a national number and without the international prefix
             // - the type of number (might not be 100% accurate)
-            final PhoneNumberUtil util = PhoneNumberUtil.getInstance();
-            try {
-                final PhoneNumber phoneNumber = util.parse(string, region);
-                if (util.isValidNumber(phoneNumber)) {
-                    HashMap<String, String> res = new HashMap<String, String>() {{
-                        PhoneNumberType type = util.getNumberType(phoneNumber);
-                        put("type", numberTypeToString(type));
-                        put("e164", util.format(phoneNumber, PhoneNumberUtil.PhoneNumberFormat.E164));
-                        put("international", util.format(phoneNumber, PhoneNumberUtil.PhoneNumberFormat.INTERNATIONAL));
-                        put("national", util.format(phoneNumber, PhoneNumberUtil.PhoneNumberFormat.NATIONAL));
-                        put("country_code", String.valueOf(phoneNumber.getCountryCode()));
-                        put("national_number", String.valueOf(phoneNumber.getNationalNumber()));
-                    }};
-                    result.success(res);
-                } else {
-                    result.error("InvalidNumber", "Number " + string + " is invalid", null);
-                }
 
-            } catch (NumberParseException e) {
+            return new HashMap<String, String>() {{
+                PhoneNumberType type = util.getNumberType(phoneNumber);
+                put("type", numberTypeToString(type));
+                put("e164", util.format(phoneNumber, PhoneNumberUtil.PhoneNumberFormat.E164));
+                put("international", util.format(phoneNumber, PhoneNumberUtil.PhoneNumberFormat.INTERNATIONAL));
+                put("national", util.format(phoneNumber, PhoneNumberUtil.PhoneNumberFormat.NATIONAL));
+                put("country_code", String.valueOf(phoneNumber.getCountryCode()));
+                put("national_number", String.valueOf(phoneNumber.getNationalNumber()));
+            }};
+        } catch (NumberParseException e) {
+            return null;
+        }
+    }
+
+    private void parse(MethodCall call, Result result) {
+        String region = call.argument("region");
+        String string = call.argument("string");
+
+        if (string == null || string.isEmpty()) {
+            result.error("InvalidParameters", "Invalid 'string' parameter.", null);
+        } else {
+            final PhoneNumberUtil util = PhoneNumberUtil.getInstance();
+
+            HashMap<String, String> res = parseStringAndRegion(string, region, util);
+
+            if (res != null) {
+                result.success(res);
+            } else {
                 result.error("InvalidNumber", "Number " + string + " is invalid", null);
             }
+        }
+    }
+
+    private void parseList(MethodCall call, Result result) {
+        String region = call.argument("region");
+        List<String> strings = call.argument("strings");
+
+        if (strings == null || strings.isEmpty()) {
+            result.error("InvalidParameters", "Invalid 'strings' parameter.", null);
+        } else {
+            final PhoneNumberUtil util = PhoneNumberUtil.getInstance();
+
+            HashMap<String, HashMap<String, String>> res = new HashMap<>(strings.size());
+
+            for (String string : strings) {
+                HashMap<String, String> stringResult = parseStringAndRegion(string, region, util);
+
+                if (stringResult != null) {
+                    res.put(string, stringResult);
+                } else {
+                    res.put(string, null);
+                }
+            }
+
+            result.success(res);
         }
     }
 

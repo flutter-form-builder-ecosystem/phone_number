@@ -26,19 +26,44 @@ class _MyAppState extends State<MyApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       final parsed = await PhoneNumber.parse("49988151701", region: "BR");
-      platformVersion = """
-      type: ${parsed['type']}
-      e164: ${parsed['e164']} 
-      international: ${parsed['international']}
-      national: ${parsed['national']}
-      country code: ${parsed['country_code']}
-      national number: ${parsed['national_number']}
+
+      platformVersion = """   
+      
+type: ${parsed['type']}
+e164: ${parsed['e164']} 
+international: ${parsed['international']}
+national: ${parsed['national']}
+country code: ${parsed['country_code']}
+national number: ${parsed['national_number']}
       """;
 
-      final formatted = await PhoneNumber.format('499881517', 'BR');
+      final formatted = await PhoneNumber.format('+47234723432', 'BR');
       platformVersion += """
-      parcially: ${formatted['formatted']}
+      
+partially: ${formatted['formatted']}
       """;
+
+      final parsedValues =
+          await PhoneNumber.parseList(["+48606723456", "+48774843312"]);
+
+      parsedValues.forEach((number, parsed) {
+        if (parsed != null) {
+          platformVersion += """
+          
+type: ${parsed['type']}
+e164: ${parsed['e164']}
+international: ${parsed['international']}
+national: ${parsed['national']}
+country code: ${parsed['country_code']}
+national number: ${parsed['national_number']}
+          """;
+        } else {
+          platformVersion += """
+          
+number not recognized: $number
+          """;
+        }
+      });
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -59,9 +84,11 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         appBar: AppBar(title: const Text('Plugin example app')),
         body: Center(
-            child: Text(
-          _platformVersion,
-          textAlign: TextAlign.left,
+            child: SingleChildScrollView(
+          child: Text(
+            _platformVersion,
+            textAlign: TextAlign.left,
+          ),
         )),
       ),
     );
