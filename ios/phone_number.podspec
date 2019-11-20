@@ -15,7 +15,7 @@ Flutter plugin for phone number validation
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.dependency 'PhoneNumberKit', '~> 2.6.0'
+  s.dependency 'PhoneNumberKit/PhoneNumberKitCore', '~> 3.1.0'
 
   s.ios.deployment_target = '8.0'
 end
