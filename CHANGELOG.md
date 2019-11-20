@@ -1,3 +1,6 @@
+## 0.4.0
+* Add support for parsing a list of phone numbers
+
 ## 0.3.1
 * Add support for phone number's countryCode and nationalNumber
 

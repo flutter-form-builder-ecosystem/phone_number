@@ -11,6 +11,13 @@ class PhoneNumber {
     return result;
   }
 
+  static Future<dynamic> parseList(List<String> strings,
+      {String region}) async {
+    final args = {"strings": strings, "region": region};
+    final result = await _channel.invokeMethod("parse_list", args);
+    return result;
+  }
+
   static Future<dynamic> format(String string, String region) async {
     final args = {"string": string, "region": region};
     final result = await _channel.invokeMethod("format", args);
