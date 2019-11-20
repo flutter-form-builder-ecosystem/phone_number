@@ -1,6 +1,7 @@
 name: phone_number_example
 description: Demonstrates how to use the phone_number plugin.
 publish_to: 'none'
+version: 1.0.0+1
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -21,7 +22,7 @@ dev_dependencies:
     path: ../
 
 # For information on the generic Dart part of this file, see the
-# following page: https://www.dartlang.org/tools/pub/pubspec
+# following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
 flutter:
