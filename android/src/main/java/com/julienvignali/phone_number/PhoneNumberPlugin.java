@@ -18,7 +18,7 @@ import io.flutter.plugin.common.PluginRegistry.Registrar;
 public class PhoneNumberPlugin implements MethodCallHandler {
 
     public static void registerWith(Registrar registrar) {
-        final MethodChannel channel = new MethodChannel(registrar.messenger(), "phone_number");
+        final MethodChannel channel = new MethodChannel(registrar.messenger(), "com.julienvignali/phone_number");
         channel.setMethodCallHandler(new PhoneNumberPlugin());
     }
 

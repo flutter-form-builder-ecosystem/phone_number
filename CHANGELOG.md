@@ -1,3 +1,9 @@
+## 0.4.1
+* Change channel name (add FQDN)
+* Reorganize the lib folder to Dart library standards
+* Update to libphonenumber 8.10.23 / PhoneNumberKitCore 3.1.0
+* Project cleanup
+
 ## 0.4.0
 * Add support for parsing a list of phone numbers
 

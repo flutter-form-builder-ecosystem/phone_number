@@ -3,7 +3,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'phone_number'
-  s.version          = '0.4.0'
+  s.version          = '0.4.1'
   s.summary          = 'Flutter plugin for phone number validation'
   s.description      = <<-DESC
 Flutter plugin for phone number validation
@@ -15,7 +15,7 @@ Flutter plugin for phone number validation
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.dependency 'PhoneNumberKit', '~> 2.6.0'
+  s.dependency 'PhoneNumberKit/PhoneNumberKitCore', '~> 3.1.0'
 
   s.ios.deployment_target = '8.0'
 end

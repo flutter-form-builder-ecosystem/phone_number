@@ -1,9 +1,16 @@
 .DS_Store
-.dart_tool/
+.atom/
+.idea/
+.vscode/
 
 .packages
 .pub/
+.dart_tool/
+pubspec.lock
+flutter_export_environment.sh
 
 build/
-.idea
-/pubspec.lock
+Podfile
+Podfile.lock
+
+*.iml

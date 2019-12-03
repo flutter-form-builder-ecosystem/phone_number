@@ -64,8 +64,8 @@ number not recognized: $number
           """;
         }
       });
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
+    } on PlatformException catch (e) {
+      platformVersion = 'Failed: ${e.message}';
     }
 
     // If the widget was removed from the tree while the asynchronous platform
