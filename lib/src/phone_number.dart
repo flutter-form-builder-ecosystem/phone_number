@@ -1,9 +1,26 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 class PhoneNumber {
   static const _channel = MethodChannel('com.julienvignali/phone_number');
+
+  factory PhoneNumber() {
+    if (_instance == null) {
+      _instance = PhoneNumber.private(_channel);
+    }
+    return _instance;
+  }
+
+  @visibleForTesting
+  PhoneNumber.private(
+    this._methodChannel,
+  );
+
+  static PhoneNumber _instance;
+
+  final MethodChannel _methodChannel;
 
   static Future<dynamic> parse(String string, {String region}) async {
     final args = {"string": string, "region": region};
@@ -22,5 +39,11 @@ class PhoneNumber {
     final args = {"string": string, "region": region};
     final result = await _channel.invokeMethod("format", args);
     return result;
+  }
+
+  Future<Map<String, int>> allSupportedRegions() async {
+    return await _methodChannel.invokeMapMethod<String, int>(
+      "get_all_supported_regions",
+    );
   }
 }
