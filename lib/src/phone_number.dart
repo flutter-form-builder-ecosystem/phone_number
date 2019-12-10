@@ -41,6 +41,7 @@ class PhoneNumber {
     return result;
   }
 
+  /// Returns a dictionary of all supported regions & their country code.
   Future<Map<String, int>> allSupportedRegions() async {
     return await _methodChannel.invokeMapMethod<String, int>(
       "get_all_supported_regions",
