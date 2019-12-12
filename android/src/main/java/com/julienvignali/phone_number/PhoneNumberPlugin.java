@@ -14,6 +14,7 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
+import java.util.Map;
 
 public class PhoneNumberPlugin implements MethodCallHandler {
 
@@ -30,9 +31,21 @@ public class PhoneNumberPlugin implements MethodCallHandler {
             parseList(call, result);
         } else if (call.method.equals("format")) {
             format(call, result);
+        } else if(call.method.equals("get_all_supported_regions")) {
+            getAllSupportedRegions(result);
         } else {
             result.notImplemented();
         }
+    }
+
+    private void getAllSupportedRegions(Result result) {
+        final Map<String, Integer> map = new HashMap<>();
+
+        for (String region : PhoneNumberUtil.getInstance().getSupportedRegions()) {
+            map.put(region, PhoneNumberUtil.getInstance().getCountryCodeForRegion(region));
+        }
+
+        result.success(map);
     }
 
     private void format(MethodCall call, Result result) {

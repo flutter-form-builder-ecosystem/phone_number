@@ -82,7 +82,18 @@ number not recognized: $number
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: const Text('Plugin example app')),
+        appBar: AppBar(
+          title: const Text('Plugin example app'),
+          actions: <Widget>[
+            Builder(builder: (context) {
+              return IconButton(
+                icon: Icon(Icons.list),
+                tooltip: 'All Supported Regions',
+                onPressed: () => _handleGetAll(context),
+              );
+            })
+          ],
+        ),
         body: Center(
             child: SingleChildScrollView(
           child: Text(
@@ -91,6 +102,29 @@ number not recognized: $number
           ),
         )),
       ),
+    );
+  }
+
+  Future<void> _handleGetAll(BuildContext context) async {
+    final all = await PhoneNumber().allSupportedRegions();
+
+    print("all: $all");
+    showDialog(
+      context: context,
+      builder: (context) {
+        final List<TableRow> rows = all.keys.map((regionCode) {
+          return TableRow(children: [
+            Text(regionCode),
+            Text('${all[regionCode]}'),
+          ]);
+        }).toList();
+        return AlertDialog(
+          title: Text('All Supported Regions'),
+          content: SingleChildScrollView(
+            child: Table(children: rows),
+          ),
+        );
+      },
     );
   }
 }
