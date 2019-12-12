@@ -1,3 +1,6 @@
+## 0.5.0
+* Add method to retrieve all supported regions & their country codes
+
 ## 0.4.1
 * Change channel name (add FQDN)
 * Reorganize the lib folder to Dart library standards
