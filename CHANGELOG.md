@@ -1,3 +1,6 @@
+## 0.5.1
+* Move parse method into instance
+
 ## 0.5.0
 * Add method to retrieve all supported regions & their country codes
 

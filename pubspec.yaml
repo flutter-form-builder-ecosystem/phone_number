@@ -1,6 +1,6 @@
 name: phone_number
 description: Flutter plugin for phone number validation
-version: 0.5.0
+version: 0.5.1
 homepage: https://github.com/nashfive/phone_number
 
 environment:
