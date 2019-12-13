@@ -22,10 +22,13 @@ class PhoneNumber {
 
   final MethodChannel _methodChannel;
 
-  static Future<dynamic> parse(String string, {String region}) async {
+  /// Returns a descriptice map based on the supplied [string] & [region].
+  ///
+  /// The dictionary keys are: `type`, `e164`, `international`, `national`,
+  /// `country_code`, `national_number`.
+  Future<Map<String, String>> parse(String string, {String region}) {
     final args = {"string": string, "region": region};
-    final result = await _channel.invokeMethod("parse", args);
-    return result;
+    return _methodChannel.invokeMapMethod<String, String>("parse", args);
   }
 
   static Future<dynamic> parseList(List<String> strings,

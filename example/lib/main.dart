@@ -25,7 +25,7 @@ class _MyAppState extends State<MyApp> {
     String platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      final parsed = await PhoneNumber.parse("49988151701", region: "BR");
+      final parsed = await PhoneNumber().parse("49988151701", region: "BR");
 
       platformVersion = """   
       
