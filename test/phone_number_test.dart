@@ -8,10 +8,10 @@ void main() {
 
   MockMethodChannel methodChannel;
   PhoneNumber phoneNumber;
+
   setUp(() {
     methodChannel = MockMethodChannel();
-
-    phoneNumber = PhoneNumber.private(methodChannel);
+    phoneNumber = PhoneNumber.withChannel(methodChannel);
   });
 
   group('allSupportedRegions', () {

@@ -3,24 +3,17 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
-class PhoneNumber {
-  static const _channel = MethodChannel('com.julienvignali/phone_number');
+const _phoneNumberChannel = MethodChannel('com.julienvignali/phone_number');
 
-  factory PhoneNumber() {
-    if (_instance == null) {
-      _instance = PhoneNumber.private(_channel);
-    }
-    return _instance;
-  }
+class PhoneNumber {
+  final MethodChannel _channel;
+
+  PhoneNumber._(this._channel);
+
+  factory PhoneNumber() => PhoneNumber._(_phoneNumberChannel);
 
   @visibleForTesting
-  PhoneNumber.private(
-    this._methodChannel,
-  );
-
-  static PhoneNumber _instance;
-
-  final MethodChannel _methodChannel;
+  factory PhoneNumber.withChannel(channel) => PhoneNumber._(channel);
 
   Future<dynamic> parse(String string, {String region}) {
     final args = {"string": string, "region": region};
