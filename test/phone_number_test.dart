@@ -4,6 +4,8 @@ import 'package:mockito/mockito.dart';
 import 'package:phone_number/phone_number.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   MockMethodChannel methodChannel;
   PhoneNumber phoneNumber;
   setUp(() {

@@ -1,10 +1,10 @@
 name: phone_number
-description: Flutter plugin for phone number validation
-version: 0.5.0
+description: Flutter plugin for parsing, formatting and validating international phone numbers.
+version: 0.6.0
 homepage: https://github.com/nashfive/phone_number
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.3.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -17,6 +17,9 @@ dev_dependencies:
 
 flutter:
   plugin:
-    androidPackage: com.julienvignali.phone_number
-    pluginClass: PhoneNumberPlugin
-
+    platforms:
+      android:
+        package: com.julienvignali.phone_number
+        pluginClass: PhoneNumberPlugin
+      ios:
+        pluginClass: PhoneNumberPlugin

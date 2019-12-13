@@ -1,3 +1,6 @@
+## 0.6.0
+* **Breaking Change**: all the plugin's API methods are now instance methods
+
 ## 0.5.0
 * Add method to retrieve all supported regions & their country codes
 
