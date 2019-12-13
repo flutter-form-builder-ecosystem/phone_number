@@ -1,4 +1,4 @@
-# Phone Number
+# Phone Number for Flutter
 
 PhoneNumber is a Flutter plugin that allows you to parse, validate and format international phone numbers.
 
