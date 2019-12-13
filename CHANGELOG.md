@@ -1,3 +1,9 @@
+## 0.6.0+1
+* Thanks to @ened for helping fixing 2 iOS issues
+* Optimize factories for testing and normal usage
+* Add analytics_options w/ pedantic
+* Initial version of the README
+
 ## 0.6.0
 * **Breaking Change**: all the plugin's API methods are now instance methods
 
