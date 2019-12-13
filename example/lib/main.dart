@@ -13,6 +13,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
+  PhoneNumber _plugin = PhoneNumber();
 
   @override
   void initState() {
@@ -25,7 +26,7 @@ class _MyAppState extends State<MyApp> {
     String platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      final parsed = await PhoneNumber.parse("49988151701", region: "BR");
+      final parsed = await _plugin.parse("49988151701", region: "BR");
 
       platformVersion = """   
       
@@ -37,14 +38,14 @@ country code: ${parsed['country_code']}
 national number: ${parsed['national_number']}
       """;
 
-      final formatted = await PhoneNumber.format('+47234723432', 'BR');
+      final formatted = await _plugin.format('+47234723432', 'BR');
       platformVersion += """
       
 partially: ${formatted['formatted']}
       """;
 
       final parsedValues =
-          await PhoneNumber.parseList(["+48606723456", "+48774843312"]);
+          await _plugin.parseList(["+48606723456", "+48774843312"]);
 
       parsedValues.forEach((number, parsed) {
         if (parsed != null) {
@@ -106,7 +107,7 @@ number not recognized: $number
   }
 
   Future<void> _handleGetAll(BuildContext context) async {
-    final all = await PhoneNumber().allSupportedRegions();
+    final all = await _plugin.allSupportedRegions();
 
     print("all: $all");
     showDialog(

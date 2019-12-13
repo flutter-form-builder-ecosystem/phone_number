@@ -22,29 +22,23 @@ class PhoneNumber {
 
   final MethodChannel _methodChannel;
 
-  static Future<dynamic> parse(String string, {String region}) async {
+  Future<dynamic> parse(String string, {String region}) {
     final args = {"string": string, "region": region};
-    final result = await _channel.invokeMethod("parse", args);
-    return result;
+    return _channel.invokeMethod("parse", args);
   }
 
-  static Future<dynamic> parseList(List<String> strings,
-      {String region}) async {
+  Future<dynamic> parseList(List<String> strings, {String region}) {
     final args = {"strings": strings, "region": region};
-    final result = await _channel.invokeMethod("parse_list", args);
-    return result;
+    return _channel.invokeMethod("parse_list", args);
   }
 
-  static Future<dynamic> format(String string, String region) async {
+  Future<dynamic> format(String string, String region) {
     final args = {"string": string, "region": region};
-    final result = await _channel.invokeMethod("format", args);
-    return result;
+    return _channel.invokeMethod("format", args);
   }
 
   /// Returns a dictionary of all supported regions & their country code.
-  Future<Map<String, int>> allSupportedRegions() async {
-    return await _methodChannel.invokeMapMethod<String, int>(
-      "get_all_supported_regions",
-    );
+  Future<Map<String, int>> allSupportedRegions() {
+    return _channel.invokeMapMethod<String, int>("get_all_supported_regions");
   }
 }
