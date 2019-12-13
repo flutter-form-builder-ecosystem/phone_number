@@ -22,7 +22,7 @@ class PhoneNumber {
 
   final MethodChannel _methodChannel;
 
-  /// Returns a descriptice map based on the supplied [string] & [region].
+  /// Returns a descriptive map based on the supplied [string] & [region].
   ///
   /// The dictionary keys are: `type`, `e164`, `international`, `national`,
   /// `country_code`, `national_number`.
