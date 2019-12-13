@@ -12,6 +12,7 @@ dependencies:
 
 dev_dependencies:
   mockito: ^4.1.0
+  pedantic: ^1.0.0
   flutter_test:
     sdk: flutter
 

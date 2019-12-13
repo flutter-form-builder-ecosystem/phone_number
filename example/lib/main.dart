@@ -110,7 +110,7 @@ number not recognized: $number
     final all = await _plugin.allSupportedRegions();
 
     print("all: $all");
-    showDialog(
+    await showDialog(
       context: context,
       builder: (context) {
         final List<TableRow> rows = all.keys.map((regionCode) {
