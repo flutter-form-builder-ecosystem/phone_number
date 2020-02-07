@@ -2,8 +2,8 @@ PODS:
   - Flutter (1.0.0)
   - phone_number (0.6.0):
     - Flutter
-    - PhoneNumberKit/PhoneNumberKitCore (~> 3.1.0)
-  - PhoneNumberKit/PhoneNumberKitCore (3.1.0)
+    - PhoneNumberKit/PhoneNumberKitCore (~> 3.2.0)
+  - PhoneNumberKit/PhoneNumberKitCore (3.2.0)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
@@ -21,8 +21,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  phone_number: a64f14bf7da986ebe7319a6b6fc0e734129ded65
-  PhoneNumberKit: adffe4e128af1918386e09e7421d3d851a2987af
+  phone_number: b7978b964a25ceaf055a9c26e25a989680b8b049
+  PhoneNumberKit: df411d46177d1492da84e10b6c093846dd861452
 
 PODFILE CHECKSUM: 1b66dae606f75376c5f2135a8290850eeb09ae83
 
