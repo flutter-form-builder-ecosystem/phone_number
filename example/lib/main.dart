@@ -26,7 +26,7 @@ class _MyAppState extends State<MyApp> {
     String platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      final parsed = await _plugin.parse("49988151701", region: "BR");
+      final parsed = await _plugin.parse("17449106505", region: "MX");
 
       platformVersion = """   
       

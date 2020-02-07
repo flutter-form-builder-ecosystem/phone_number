@@ -1,6 +1,6 @@
 name: phone_number
 description: Flutter plugin for parsing, formatting and validating international phone numbers.
-version: 0.6.0+1
+version: 0.6.0+2
 homepage: https://github.com/nashfive/phone_number
 
 environment:

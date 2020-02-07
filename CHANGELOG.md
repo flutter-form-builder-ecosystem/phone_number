@@ -1,3 +1,7 @@
+## 0.6.0+2
+* Upgrade to libphonenumber 8.11.3
+* Upgrade to PhoneNumberKit 3.2.0
+
 ## 0.6.0+1
 * Thanks to @ened for helping fixing 2 iOS issues
 * Optimize factories for testing and normal usage
