@@ -3,9 +3,6 @@ description: Flutter plugin for parsing, formatting and validating international
 version: 0.6.0+2
 homepage: https://github.com/nashfive/phone_number
 
-environment:
-  sdk: ">=2.3.0 <3.0.0"
-
 dependencies:
   flutter:
     sdk: flutter
@@ -24,3 +21,7 @@ flutter:
         pluginClass: PhoneNumberPlugin
       ios:
         pluginClass: PhoneNumberPlugin
+
+environment:
+  sdk: ">=2.3.0 <3.0.0"
+  flutter: ">=1.12.13+hotfix.6 <2.0.0"
