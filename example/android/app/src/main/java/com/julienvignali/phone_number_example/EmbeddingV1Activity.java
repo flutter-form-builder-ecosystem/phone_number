@@ -1,13 +1,15 @@
 package com.julienvignali.phone_number_example;
 
 import android.os.Bundle;
+import com.julienvignali.phone_number.PhoneNumberPlugin;
 import io.flutter.app.FlutterActivity;
-import io.flutter.plugins.GeneratedPluginRegistrant;
 
-public class MainActivity extends FlutterActivity {
+public class EmbeddingV1Activity extends FlutterActivity {
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    GeneratedPluginRegistrant.registerWith(this);
+    PhoneNumberPlugin
+        .registerWith(registrarFor("com.julienvignali.phone_number.PhoneNumberPlugin"));
   }
 }

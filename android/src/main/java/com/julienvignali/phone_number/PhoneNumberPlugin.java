@@ -1,182 +1,36 @@
 package com.julienvignali.phone_number;
 
-import com.google.i18n.phonenumbers.AsYouTypeFormatter;
-import com.google.i18n.phonenumbers.NumberParseException;
-import com.google.i18n.phonenumbers.PhoneNumberUtil;
-import com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberType;
-import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
-
-import java.util.HashMap;
-import java.util.List;
-
-import io.flutter.plugin.common.MethodCall;
+import androidx.annotation.NonNull;
+import io.flutter.embedding.engine.plugins.FlutterPlugin;
+import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodChannel;
-import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
-import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
-import java.util.Map;
 
-public class PhoneNumberPlugin implements MethodCallHandler {
+public class PhoneNumberPlugin implements FlutterPlugin {
 
-    public static void registerWith(Registrar registrar) {
-        final MethodChannel channel = new MethodChannel(registrar.messenger(), "com.julienvignali/phone_number");
-        channel.setMethodCallHandler(new PhoneNumberPlugin());
-    }
+  private MethodChannel channel;
 
-    @Override
-    public void onMethodCall(MethodCall call, Result result) {
-        if (call.method.equals("parse")) {
-            parse(call, result);
-        } else if (call.method.equals("parse_list")) {
-            parseList(call, result);
-        } else if (call.method.equals("format")) {
-            format(call, result);
-        } else if(call.method.equals("get_all_supported_regions")) {
-            getAllSupportedRegions(result);
-        } else {
-            result.notImplemented();
-        }
-    }
+  public static void registerWith(Registrar registrar) {
+    PhoneNumberPlugin plugin = new PhoneNumberPlugin();
+    plugin.startListening(registrar.messenger());
+  }
 
-    private void getAllSupportedRegions(Result result) {
-        final Map<String, Integer> map = new HashMap<>();
+  @Override
+  public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
+    startListening(binding.getBinaryMessenger());
+  }
 
-        for (String region : PhoneNumberUtil.getInstance().getSupportedRegions()) {
-            map.put(region, PhoneNumberUtil.getInstance().getCountryCodeForRegion(region));
-        }
+  @Override
+  public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
+    stopListening();
+  }
 
-        result.success(map);
-    }
+  private void startListening(BinaryMessenger messenger) {
+    channel = new MethodChannel(messenger, "com.julienvignali/phone_number");
+    channel.setMethodCallHandler(new MethodCallHandlerImpl());
+  }
 
-    private void format(MethodCall call, Result result) {
-        final String region = call.argument("region");
-        final String number = call.argument("string");
-
-        if (number == null) {
-            result.error("InvalidParameters", "Invalid 'string' parameter.", null);
-        }
-
-        try {
-            final PhoneNumberUtil util = PhoneNumberUtil.getInstance();
-            final AsYouTypeFormatter formatter = util.getAsYouTypeFormatter(region);
-
-            String formatted = "";
-            formatter.clear();
-            for (char character : number.toCharArray()) {
-                formatted = formatter.inputDigit(character);
-            }
-
-            HashMap<String, String> res = new HashMap<>();
-            res.put("formatted", formatted);
-
-            result.success(res);
-        } catch (Exception exception) {
-            result.error("InvalidNumber", "Number " + number + " is invalid", null);
-        }
-    }
-
-    private HashMap<String, String> parseStringAndRegion(String string, String region, final PhoneNumberUtil util) {
-        try {
-            final PhoneNumber phoneNumber = util.parse(string, region);
-
-            if (!util.isValidNumber(phoneNumber)) {
-                return null;
-            }
-
-            // Try to parse the string to a phone number for a given region.
-
-            // If the parsing is successful, we return a map containing :
-            // - the number in the E164 format
-            // - the number in the international format
-            // - the number formatted as a national number and without the international prefix
-            // - the type of number (might not be 100% accurate)
-
-            return new HashMap<String, String>() {{
-                PhoneNumberType type = util.getNumberType(phoneNumber);
-                put("type", numberTypeToString(type));
-                put("e164", util.format(phoneNumber, PhoneNumberUtil.PhoneNumberFormat.E164));
-                put("international", util.format(phoneNumber, PhoneNumberUtil.PhoneNumberFormat.INTERNATIONAL));
-                put("national", util.format(phoneNumber, PhoneNumberUtil.PhoneNumberFormat.NATIONAL));
-                put("country_code", String.valueOf(phoneNumber.getCountryCode()));
-                put("national_number", String.valueOf(phoneNumber.getNationalNumber()));
-            }};
-        } catch (NumberParseException e) {
-            return null;
-        }
-    }
-
-    private void parse(MethodCall call, Result result) {
-        String region = call.argument("region");
-        String string = call.argument("string");
-
-        if (string == null || string.isEmpty()) {
-            result.error("InvalidParameters", "Invalid 'string' parameter.", null);
-        } else {
-            final PhoneNumberUtil util = PhoneNumberUtil.getInstance();
-
-            HashMap<String, String> res = parseStringAndRegion(string, region, util);
-
-            if (res != null) {
-                result.success(res);
-            } else {
-                result.error("InvalidNumber", "Number " + string + " is invalid", null);
-            }
-        }
-    }
-
-    private void parseList(MethodCall call, Result result) {
-        String region = call.argument("region");
-        List<String> strings = call.argument("strings");
-
-        if (strings == null || strings.isEmpty()) {
-            result.error("InvalidParameters", "Invalid 'strings' parameter.", null);
-        } else {
-            final PhoneNumberUtil util = PhoneNumberUtil.getInstance();
-
-            HashMap<String, HashMap<String, String>> res = new HashMap<>(strings.size());
-
-            for (String string : strings) {
-                HashMap<String, String> stringResult = parseStringAndRegion(string, region, util);
-
-                if (stringResult != null) {
-                    res.put(string, stringResult);
-                } else {
-                    res.put(string, null);
-                }
-            }
-
-            result.success(res);
-        }
-    }
-
-    private String numberTypeToString(PhoneNumberUtil.PhoneNumberType type) {
-        switch (type) {
-            case FIXED_LINE:
-                return "fixedLine";
-            case MOBILE:
-                return "mobile";
-            case FIXED_LINE_OR_MOBILE:
-                return "fixedOrMobile";
-            case TOLL_FREE:
-                return "tollFree";
-            case PREMIUM_RATE:
-                return "premiumRate";
-            case SHARED_COST:
-                return "sharedCost";
-            case VOIP:
-                return "voip";
-            case PERSONAL_NUMBER:
-                return "personalNumber";
-            case PAGER:
-                return "pager";
-            case UAN:
-                return "uan";
-            case VOICEMAIL:
-                return "voicemail";
-            case UNKNOWN:
-                return "unknown";
-            default:
-                return "notParsed";
-        }
-    }
+  private void stopListening() {
+    channel.setMethodCallHandler(null);
+  }
 }
