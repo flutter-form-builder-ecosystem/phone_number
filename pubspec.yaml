@@ -12,7 +12,10 @@ dev_dependencies:
   pedantic: ^1.0.0
   flutter_test:
     sdk: flutter
-
+  e2e: ^0.4.0
+  flutter_driver:
+    sdk: flutter
+   
 flutter:
   plugin:
     platforms:

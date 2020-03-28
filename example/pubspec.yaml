@@ -10,7 +10,10 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  e2e: ^0.4.0
+  flutter_driver:
+    sdk: flutter
+  
   phone_number:
     path: ../
 
