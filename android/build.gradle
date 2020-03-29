@@ -1,5 +1,4 @@
 group 'com.julienvignali.phone_number'
-version '0.6.0'
 
 buildscript {
     repositories {
@@ -8,7 +7,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.2'
+        classpath 'com.android.tools.build:gradle:3.6.1'
     }
 }
 
@@ -28,6 +27,12 @@ android {
         minSdkVersion 16
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
     lintOptions {
         disable 'InvalidPackage'
     }
