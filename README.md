@@ -6,7 +6,7 @@ The plugin uses the native libraries [libphonenumber](https://github.com/google/
 
 |Library|Version|
 |--|--|
-|libphonenumber|`8.11.3`|
+|libphonenumber|`8.12.1`|
 |PhoneNumberKit|`3.2.0`|
 
 ## Usage
