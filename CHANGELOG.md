@@ -1,3 +1,6 @@
+## 0.6.2
+* Upgrade to libphonenumber 8.12.1
+
 ## 0.6.1
 * Compatibility with Flutters Android Embedding V2
 * Activate E2E testing capabilities
