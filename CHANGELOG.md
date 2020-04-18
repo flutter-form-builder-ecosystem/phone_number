@@ -1,3 +1,7 @@
+## 0.6.2+1
+* Fix compatibility with Objective-C projects
+* Fix iOS example compatibility issue with Xcode 11.4 (https://flutter.dev/docs/development/ios-project-migration) 
+
 ## 0.6.2
 * Upgrade to libphonenumber 8.12.1
 
