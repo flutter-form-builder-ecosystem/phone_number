@@ -5,6 +5,11 @@ import 'package:phone_number_example/models/region.dart';
 import 'package:phone_number_example/region_picker.dart';
 import 'package:phone_number_example/store.dart';
 
+/// TODO: Add previous hardcoded examples
+// parse '17449106505' (MX)
+// parse list "+48606723456", "+48774843312"
+// format '+47234723432', 'BR'
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
