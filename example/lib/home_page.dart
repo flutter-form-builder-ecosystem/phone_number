@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(title: Text('Phone Number')),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(32, 16, 32, 0),
+            padding: const EdgeInsets.fromLTRB(28, 24, 28, 0),
             child: Form(
               key: key,
               child: Column(
@@ -109,8 +109,9 @@ class _HomePageState extends State<HomePage> {
                       ),
                       SizedBox(width: 16),
                       Expanded(
-                          child: RaisedButton(
-                              child: Text('Parse'), onPressed: parse)),
+                        child: RaisedButton(
+                            child: Text('Parse'), onPressed: parse),
+                      ),
                     ],
                   ),
                   SizedBox(height: 10),
