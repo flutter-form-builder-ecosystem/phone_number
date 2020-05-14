@@ -35,6 +35,15 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  void format() async {
+    if (key.currentState.validate()) {
+      dismissKeyboard();
+      final formatted  = await store.format(numberCtrl.text, region);
+      numberCtrl.text = formatted;
+      setState(() {});
+    }
+  }
+
   void reset() {
     key.currentState.reset();
     regionCtrl.text = '';
@@ -43,6 +52,7 @@ class _HomePageState extends State<HomePage> {
     result = null;
     setState(() {});
   }
+
 
   void chooseRegions() async {
     dismissKeyboard();
@@ -70,7 +80,7 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(title: Text('Phone Number')),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(28, 24, 28, 0),
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
             child: Form(
               key: key,
               child: Column(
@@ -94,7 +104,7 @@ class _HomePageState extends State<HomePage> {
                       child: TextFormField(
                         controller: regionCtrl,
                         decoration: InputDecoration(
-                          labelText: 'Region (optional)',
+                          labelText: 'Region',
                           helperText: '',
                         ),
                       ),
@@ -104,17 +114,25 @@ class _HomePageState extends State<HomePage> {
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: OutlineButton(
-                            child: Text('Reset'), onPressed: reset),
+                        child: RaisedButton(
+                          child: Text('Format'),
+                          onPressed: regionCtrl.text.isEmpty ? null:  format,
+                        ),
                       ),
-                      SizedBox(width: 16),
+                      SizedBox(width: 8),
                       Expanded(
                         child: RaisedButton(
-                            child: Text('Parse'), onPressed: parse),
+                          child: Text('Parse'),
+                          onPressed: parse,
+                        ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 10),
+                  OutlineButton(
+                    child: Text('Reset'),
+                    onPressed: reset,
+                  ),
+                  SizedBox(height: 20),
                   if (hasResult)
                     Padding(
                       padding: const EdgeInsets.only(top: 16),
@@ -143,6 +161,7 @@ class Result extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text("Result:", style: theme.textTheme.title),
+        SizedBox(height: 10),
         ...(result.hasError)
             ? [
                 Text(

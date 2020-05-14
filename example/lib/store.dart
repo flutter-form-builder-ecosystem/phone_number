@@ -34,4 +34,14 @@ class Store {
       return ParseResult.error(e.code);
     }
   }
+
+  Future<String> format(String string, Region region) async {
+    print("format $string for region: ${region.code}");
+    try {
+      final result = await plugin.format(string, region.code);
+      return result['formatted'];
+    } on PlatformException catch (e) {
+      return e.code;
+    }
+  }
 }
