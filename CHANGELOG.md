@@ -1,3 +1,6 @@
+## 0.6.2+2
+* Rewrite of the example app
+
 ## 0.6.2+1
 * Fix compatibility with Objective-C projects
 * Fix iOS example compatibility issue with Xcode 11.4 (https://flutter.dev/docs/development/ios-project-migration) 
