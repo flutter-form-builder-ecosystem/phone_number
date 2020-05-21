@@ -84,7 +84,7 @@ public class SwiftPhoneNumberPlugin: NSObject, FlutterPlugin {
                 "country_code": String(phoneNumber.countryCode),
                 "national_number": String(phoneNumber.nationalNumber)
             ]
-        } catch let error {
+        } catch {
             return nil;
         }
     }
