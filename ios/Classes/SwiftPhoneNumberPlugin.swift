@@ -43,18 +43,12 @@ public class SwiftPhoneNumberPlugin: NSObject, FlutterPlugin {
                 return
         }
         
-        do {
-            let formatted = PartialFormatter(defaultRegion: region).formatPartial(number)
-            let res:[String: String] = [
-                "formatted": formatted
-            ]
+        let formatted = PartialFormatter(defaultRegion: region).formatPartial(number)
+        let res:[String: String] = [
+            "formatted": formatted
+        ]
 
-            result(res)
-        } catch {
-            result(FlutterError(code: "InvalidNumber",
-                                message:"Failed to parse phone number string '\(number)'.",
-                                details: nil))
-        }
+        result(res)
     }
 
     private func parse(string: String, region: String?) -> [String: String]? {
