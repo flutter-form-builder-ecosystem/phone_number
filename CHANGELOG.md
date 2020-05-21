@@ -1,3 +1,6 @@
+## 0.6.2+3
+* Fix warnings in Swift code
+
 ## 0.6.2+2
 * Rewrite of the example app
 
