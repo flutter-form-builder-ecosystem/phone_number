@@ -23,6 +23,8 @@ public class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
       parseList(call, result);
     } else if (call.method.equals("format")) {
       format(call, result);
+    }  else if (call.method.equals("validate")) {
+      validate(call, result);
     } else if (call.method.equals("get_all_supported_regions")) {
       getAllSupportedRegions(result);
     } else {
@@ -38,6 +40,29 @@ public class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
     }
 
     result.success(map);
+  }
+
+  private void validate(MethodCall call, Result result) {
+    final String region = call.argument("region");
+    final String number = call.argument("string");
+
+    if (number == null) {
+      result.error("InvalidParameters", "Invalid 'string' parameter.", null);
+      return;
+    }
+
+    try {
+      final PhoneNumberUtil util = PhoneNumberUtil.getInstance();
+      final PhoneNumber phoneNumber = util.parse(number, region);
+      boolean isValid = util.isValidNumberForRegion(phoneNumber, region);
+
+      HashMap<String, Boolean> res = new HashMap<>();
+      res.put("isValid", isValid);
+
+      result.success(res);
+    } catch (Exception exception) {
+      result.error("InvalidNumber", "Number " + number + " is invalid", null);
+    }
   }
 
   private void format(MethodCall call, Result result) {

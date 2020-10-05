@@ -54,6 +54,16 @@ class PhoneNumber {
     });
   }
 
+  Future<Map<String, dynamic>> validate(String string, String region) {
+    print('validate works');
+    print(string);
+    print(region);
+    return _channel.invokeMapMethod<String, dynamic>("validate", {
+      "string": string,
+      "region": region,
+    });
+  }
+
   /// Returns a dictionary of all supported regions & their country code.
   Future<Map<String, int>> allSupportedRegions() {
     return _channel.invokeMapMethod<String, int>("get_all_supported_regions");
