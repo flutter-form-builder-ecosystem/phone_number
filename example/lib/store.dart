@@ -50,6 +50,7 @@ class Store {
       final result = await plugin.validate(string, region.code);
       return result['isValid'];
     } on PlatformException catch (e) {
+      print(e.toString());
       return false;
     }
   }
