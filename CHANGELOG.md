@@ -1,3 +1,6 @@
+## 0.6.3
+* Adding validate method for both platforms 
+ 
 ## 0.6.2+4
 * Upgrade to libphonenumber 8.12.6
 

@@ -44,4 +44,15 @@ class Store {
       return e.code;
     }
   }
+
+  Future<bool> validate(String string, Region region) async {
+    print("validate $string for region: ${region.code}");
+    try {
+      final result = await plugin.validate(string, region.code);
+      return result['isValid'];
+    } on PlatformException catch (e) {
+      print(e.toString());
+      return false;
+    }
+  }
 }

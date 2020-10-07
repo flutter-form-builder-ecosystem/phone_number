@@ -11,6 +11,7 @@ public class SwiftPhoneNumberPlugin: NSObject, FlutterPlugin {
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch(call.method) {
         case "parse": parse(call, result: result)
+        case "validate": validate(call, result: result)
         case "parse_list": parseList(call, result: result)
         case "format": format(call, result: result)
         case "get_all_supported_regions": getAllSupportedRegions(result: result)
@@ -20,6 +21,24 @@ public class SwiftPhoneNumberPlugin: NSObject, FlutterPlugin {
     }
 
     private let kit = PhoneNumberKit()
+    
+    private func validate(_ call: FlutterMethodCall, result: FlutterResult){
+        guard
+            let arguments = call.arguments as? [String : Any],
+            let number = arguments["string"] as? String,
+            let region = arguments["region"] as? String
+            else {
+                result(FlutterError(code: "InvalidArgument",
+                                    message: "The 'string' argument is missing.",
+                                    details: nil))
+                return
+        }
+        let isValid = kit.isValidPhoneNumber(number,withRegion: region);
+          let res:[String: Bool] = [
+                    "isValid": isValid
+                ]
+        result(res)
+    }
     
     private func getAllSupportedRegions(result: FlutterResult) {
         var map: [String: Int] = [:]

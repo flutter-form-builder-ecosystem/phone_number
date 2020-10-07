@@ -115,6 +115,12 @@ class _HomePageState extends State<HomePage> {
                     children: <Widget>[
                       Expanded(
                         child: RaisedButton(
+                          child: Text('Validate'),
+                          onPressed: regionCtrl.text.isEmpty ? null:  validate,
+                        ),
+                      ),
+                      Expanded(
+                        child: RaisedButton(
                           child: Text('Format'),
                           onPressed: regionCtrl.text.isEmpty ? null:  format,
                         ),
@@ -145,6 +151,11 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  validate() async {
+    final isValid  = await store.validate(numberCtrl.text, region);
+    print('isValid : ' + isValid.toString());
   }
 }
 
