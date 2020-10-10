@@ -181,7 +181,7 @@ class Result extends StatelessWidget {
                 ),
               ]
             : [
-                _ResultRow(name: 'Type', value: result.phoneNumber.type.toString()),
+                _ResultRow(name: 'Type', value: result.phoneNumber.type.toString().split('.').last),
                 _ResultRow(name: 'E164', value: result.phoneNumber.e164),
                 _ResultRow(name: 'International', value: result.phoneNumber.international),
                 _ResultRow(name: 'National', value: result.phoneNumber.national),
