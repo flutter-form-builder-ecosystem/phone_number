@@ -18,7 +18,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final regionCtrl = TextEditingController();
   final numberCtrl = TextEditingController();
-  final store = Store(PhoneNumber());
+  final store = Store(PhoneNumberUtil());
   final key = GlobalKey<FormState>();
 
   Region region;
@@ -181,11 +181,11 @@ class Result extends StatelessWidget {
                 ),
               ]
             : [
-                _ResultRow(name: 'Type', value: result.type),
-                _ResultRow(name: 'E164', value: result.e164),
-                _ResultRow(name: 'International', value: result.international),
-                _ResultRow(name: 'National', value: result.national),
-                _ResultRow(name: 'Country code', value: result.countryCode),
+                _ResultRow(name: 'Type', value: result.phoneNumber.type.toString()),
+                _ResultRow(name: 'E164', value: result.phoneNumber.e164),
+                _ResultRow(name: 'International', value: result.phoneNumber.international),
+                _ResultRow(name: 'National', value: result.phoneNumber.national),
+                _ResultRow(name: 'Country code', value: result.phoneNumber.countryCode),
               ],
       ],
     );

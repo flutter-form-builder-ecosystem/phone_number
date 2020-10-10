@@ -7,11 +7,11 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   MockMethodChannel methodChannel;
-  PhoneNumber phoneNumber;
+  PhoneNumberUtil phoneNumber;
 
   setUp(() {
     methodChannel = MockMethodChannel();
-    phoneNumber = PhoneNumber.withChannel(methodChannel);
+    phoneNumber = PhoneNumberUtil.withChannel(methodChannel);
   });
 
   group('allSupportedRegions', () {

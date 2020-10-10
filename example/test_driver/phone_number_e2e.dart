@@ -6,7 +6,7 @@ void main() {
   E2EWidgetsFlutterBinding.ensureInitialized();
 
   testWidgets('parse "+49 30 12345678"', (WidgetTester tester) async {
-    final state = await PhoneNumber().parse('+49 30 12345678');
+    final state = await PhoneNumberUtil().parse('+49 30 12345678');
 
     expect(state, {
       'country_code': '49',
