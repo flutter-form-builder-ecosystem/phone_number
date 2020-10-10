@@ -28,9 +28,6 @@ class Store {
   Future<ParseResult> parse(String string, {Region region}) async {
     print("parse $string for region: ${region?.code}");
     try {
-      final result1 =
-          await plugin.parseList(['0334110404', '979006985'], regionCode: 'VN');
-      print(result1);
       final result = await plugin.parse(string, regionCode: region?.code);
       return ParseResult(result);
     } on PlatformException catch (e) {
