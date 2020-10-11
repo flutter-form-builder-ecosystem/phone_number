@@ -1,3 +1,7 @@
+## 0.7.0+1
+* Fix missing dependency to `meta`
+* Formatting code according to `dartfmt`
+
 ## 0.7.0
 * Introduce PhoneNumber and RegionInfo classes for parsed results
 * Change plugin's entry point to `PhoneNumberUtil` to mirror usage found in Google's `libphonenumber` library

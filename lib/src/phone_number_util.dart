@@ -21,7 +21,10 @@ class PhoneNumberUtil {
   ///
   /// Returns [PhoneNumber] object corresponds to [phoneNumberString] if [phoneNumberString] is valid
   /// Throws [PlatformException] if [phoneNumberString] is invalid
-  Future<PhoneNumber> parse(String phoneNumberString, {String regionCode}) async {
+  Future<PhoneNumber> parse(
+    String phoneNumberString, {
+    String regionCode,
+  }) async {
     final result = await _channel.invokeMapMethod<String, dynamic>('parse', {
       'string': phoneNumberString,
       'region': regionCode,
@@ -50,11 +53,14 @@ class PhoneNumberUtil {
     );
   }
 
-///Format [phoneNumberString] or [regionCode]
-///
-///Return formatted phone number
-/// Throws [PlatformException] if [phoneNumberString] is invalid
-  Future<String> format(String phoneNumberString, String regionCode) async {
+  ///Format [phoneNumberString] or [regionCode]
+  ///
+  ///Return formatted phone number
+  /// Throws [PlatformException] if [phoneNumberString] is invalid
+  Future<String> format(
+    String phoneNumberString,
+    String regionCode,
+  ) async {
     final result = await _channel.invokeMapMethod<String, dynamic>('format', {
       'string': phoneNumberString,
       'region': regionCode,
@@ -64,10 +70,13 @@ class PhoneNumberUtil {
   }
 
   /// Validate [phoneNumberString] for [regionCode]
-  /// 
+  ///
   /// Returns true if [phoneNumberString] is valid in region with code [regionCode]
   /// otherwise return false
-  Future<bool> validate(String phoneNumberString, String regionCode) async {
+  Future<bool> validate(
+    String phoneNumberString,
+    String regionCode,
+  ) async {
     final result = await _channel.invokeMapMethod<String, dynamic>('validate', {
       'string': phoneNumberString,
       'region': regionCode,
