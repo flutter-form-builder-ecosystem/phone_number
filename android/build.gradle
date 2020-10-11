@@ -1,4 +1,5 @@
 group 'com.julienvignali.phone_number'
+version '0.8.0'
 
 buildscript {
     repositories {
@@ -21,16 +22,10 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
 
     defaultConfig {
         minSdkVersion 16
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    compileOptions {
-        sourceCompatibility 1.8
-        targetCompatibility 1.8
     }
 
     lintOptions {
@@ -39,5 +34,5 @@ android {
 }
 
 dependencies {
-    implementation "com.googlecode.libphonenumber:libphonenumber:8.12.6"
+    implementation "com.googlecode.libphonenumber:libphonenumber:8.12.9"
 }
