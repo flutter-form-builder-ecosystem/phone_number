@@ -7,11 +7,6 @@
 .pub/
 .dart_tool/
 pubspec.lock
-flutter_export_environment.sh
 
 build/
-Podfile
-Podfile.lock
-
 *.iml
-.flutter-plugins-dependencies
