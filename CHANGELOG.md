@@ -1,3 +1,8 @@
+## 0.8.0
+* Pin PhoneNumberKit to 3.3.1 to align with libphonenumber 8.12.9 phone numbers metadata
+* Refactor project according to latest stable Flutter plugin template
+* Remove all tests
+
 ## 0.7.0+1
 * Fix missing dependency to `meta`
 * Formatting code according to `dartfmt`
