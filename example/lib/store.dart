@@ -4,7 +4,7 @@ import 'package:phone_number_example/models/parse_result.dart';
 import 'package:phone_number_example/models/region.dart';
 
 class Store {
-  final PhoneNumber plugin;
+  final PhoneNumberUtil plugin;
 
   Store(this.plugin);
 
@@ -15,9 +15,9 @@ class Store {
       final data = await plugin.allSupportedRegions();
 
       // Filter out regions with more than 2 characters
-      _regions = data.entries
-          .where((e) => e.key.length <= 2)
-          .map((e) => Region(e.key, e.value))
+      _regions = data
+          .where((e) => e.code.length <= 2)
+          .map((e) => Region(e.code, e.prefix))
           .toList();
 
       _regions.sort();
@@ -28,7 +28,7 @@ class Store {
   Future<ParseResult> parse(String string, {Region region}) async {
     print("parse $string for region: ${region?.code}");
     try {
-      final result = await plugin.parse(string, region: region?.code);
+      final result = await plugin.parse(string, regionCode: region?.code);
       return ParseResult(result);
     } on PlatformException catch (e) {
       return ParseResult.error(e.code);
@@ -39,7 +39,7 @@ class Store {
     print("format $string for region: ${region.code}");
     try {
       final result = await plugin.format(string, region.code);
-      return result['formatted'];
+      return result;
     } on PlatformException catch (e) {
       return e.code;
     }
@@ -49,7 +49,7 @@ class Store {
     print("validate $string for region: ${region.code}");
     try {
       final result = await plugin.validate(string, region.code);
-      return result['isValid'];
+      return result;
     } on PlatformException catch (e) {
       print(e.toString());
       return false;
