@@ -1,6 +1,11 @@
+## 0.7.0
+* Introduce PhoneNumber and RegionInfo classes for parsed results
+* Change plugin's entry point to `PhoneNumberUtil` to mirror usage found in Google's `libphonenumber` library
+* Add the `PhoneNumberType` enum
+
 ## 0.6.3
-* Adding validate method for both platforms 
- 
+* Adding validate method for both platforms
+
 ## 0.6.2+4
 * Upgrade to libphonenumber 8.12.6
 
@@ -12,7 +17,7 @@
 
 ## 0.6.2+1
 * Fix compatibility with Objective-C projects
-* Fix iOS example compatibility issue with Xcode 11.4 (https://flutter.dev/docs/development/ios-project-migration) 
+* Fix iOS example compatibility issue with Xcode 11.4 (https://flutter.dev/docs/development/ios-project-migration)
 
 ## 0.6.2
 * Upgrade to libphonenumber 8.12.1
