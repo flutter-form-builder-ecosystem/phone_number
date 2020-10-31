@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
   void format() async {
     if (key.currentState.validate()) {
       dismissKeyboard();
-      final formatted  = await store.format(numberCtrl.text, region);
+      final formatted = await store.format(numberCtrl.text, region);
       numberCtrl.text = formatted;
       setState(() {});
     }
@@ -52,7 +52,6 @@ class _HomePageState extends State<HomePage> {
     result = null;
     setState(() {});
   }
-
 
   void chooseRegions() async {
     dismissKeyboard();
@@ -116,13 +115,13 @@ class _HomePageState extends State<HomePage> {
                       Expanded(
                         child: RaisedButton(
                           child: Text('Validate'),
-                          onPressed: regionCtrl.text.isEmpty ? null:  validate,
+                          onPressed: regionCtrl.text.isEmpty ? null : validate,
                         ),
                       ),
                       Expanded(
                         child: RaisedButton(
                           child: Text('Format'),
-                          onPressed: regionCtrl.text.isEmpty ? null:  format,
+                          onPressed: regionCtrl.text.isEmpty ? null : format,
                         ),
                       ),
                       SizedBox(width: 8),
@@ -154,7 +153,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   validate() async {
-    final isValid  = await store.validate(numberCtrl.text, region);
+    final isValid = await store.validate(numberCtrl.text, region);
     print('isValid : ' + isValid.toString());
   }
 }
@@ -185,6 +184,7 @@ class Result extends StatelessWidget {
                 _ResultRow(name: 'E164', value: result.phoneNumber.e164),
                 _ResultRow(name: 'International', value: result.phoneNumber.international),
                 _ResultRow(name: 'National', value: result.phoneNumber.national),
+                _ResultRow(name: 'National number', value: result.phoneNumber.nationalNumber),
                 _ResultRow(name: 'Country code', value: result.phoneNumber.countryCode),
               ],
       ],
