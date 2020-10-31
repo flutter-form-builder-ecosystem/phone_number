@@ -176,7 +176,7 @@ class Result extends StatelessWidget {
             ? [
                 Text(
                   'Error! (code: ${result.errorCode})',
-                  style: theme.textTheme.body2.copyWith(color: Colors.red),
+                  style: theme.textTheme.bodyText1.copyWith(color: Colors.red),
                 ),
               ]
             : [
@@ -206,8 +206,8 @@ class _ResultRow extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Flexible(child: Text('$name', style: theme.textTheme.body1)),
-          Flexible(child: Text(value, style: theme.textTheme.body2)),
+          Flexible(child: Text('$name', style: theme.textTheme.bodyText2)),
+          Flexible(child: Text(value, style: theme.textTheme.bodyText1)),
         ],
       ),
     );
