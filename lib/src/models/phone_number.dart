@@ -26,7 +26,7 @@ class PhoneNumber {
         national: json['national'],
         type: _mapStringToPhoneNumberType(json['type']),
         international: json['international'],
-        nationalNumber: 'national_number');
+        nationalNumber: json['national_number']);
   }
 
   static PhoneNumberType _mapStringToPhoneNumberType(String typeStr) {
