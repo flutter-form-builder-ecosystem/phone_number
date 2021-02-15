@@ -1,3 +1,7 @@
+## 0.8.1+1
+
+- Bump to libphonenumber 8.12.18 and PhoneKit 3.3.3
+
 ## 0.8.1
 
 - Fix parsing of nationalNumber property
