@@ -1,8 +1,8 @@
 import 'package:phone_number/phone_number.dart';
 
 class ParseResult {
-  final PhoneNumber phoneNumber;
-  final String errorCode;
+  final PhoneNumber? phoneNumber;
+  final String? errorCode;
 
   ParseResult._({
     this.phoneNumber,
@@ -20,12 +20,12 @@ class ParseResult {
   @override
   String toString() {
     return 'ParseResult{'
-        'e164: ${phoneNumber.e164}, '
-        'type: ${phoneNumber.type}, '
-        'international: ${phoneNumber.international}, '
-        'national: ${phoneNumber.national}, '
-        'countryCode: ${phoneNumber.countryCode}, '
-        'nationalNumber: ${phoneNumber.nationalNumber}, '
+        'e164: ${phoneNumber?.e164}, '
+        'type: ${phoneNumber?.type}, '
+        'international: ${phoneNumber?.international}, '
+        'national: ${phoneNumber?.national}, '
+        'countryCode: ${phoneNumber?.countryCode}, '
+        'nationalNumber: ${phoneNumber?.nationalNumber}, '
         'errorCode: $errorCode}';
   }
 }
