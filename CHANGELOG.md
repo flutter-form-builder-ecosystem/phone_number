@@ -1,6 +1,6 @@
 ## 0.9.0
 
-- Migrate to null safety
+- Add support for null safety
 
 ## 0.8.1+1
 
