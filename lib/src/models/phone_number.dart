@@ -11,12 +11,12 @@ class PhoneNumber {
   final String nationalNumber;
 
   PhoneNumber({
-    @required this.countryCode,
-    @required this.e164,
-    @required this.national,
-    @required this.type,
-    @required this.international,
-    @required this.nationalNumber,
+    required this.countryCode,
+    required this.e164,
+    required this.national,
+    required this.type,
+    required this.international,
+    required this.nationalNumber,
   });
 
   factory PhoneNumber.fromJson(Map<String, dynamic> json) {
@@ -24,13 +24,13 @@ class PhoneNumber {
         countryCode: json['country_code'],
         e164: json['e164'],
         national: json['national'],
-        type: _mapStringToPhoneNumberType(json['type']),
+        type: _mapStringToPhoneNumberType(json['type'])!,
         international: json['international'],
         nationalNumber: json['national_number']);
   }
 
-  static PhoneNumberType _mapStringToPhoneNumberType(String typeStr) {
-    PhoneNumberType type;
+  static PhoneNumberType? _mapStringToPhoneNumberType(String? typeStr) {
+    PhoneNumberType? type;
     switch (typeStr) {
       case 'fixedLine':
         type = PhoneNumberType.FIXED_LINE;

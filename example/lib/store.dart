@@ -8,7 +8,7 @@ class Store {
 
   Store(this.plugin);
 
-  List<Region> _regions;
+  List<Region>? _regions;
 
   Future<List<Region>> getRegions() async {
     if (_regions == null) {
@@ -20,12 +20,12 @@ class Store {
           .map((e) => Region(e.code, e.prefix))
           .toList();
 
-      _regions.sort();
+      _regions!.sort();
     }
-    return _regions;
+    return _regions ?? [];
   }
 
-  Future<ParseResult> parse(String string, {Region region}) async {
+  Future<ParseResult> parse(String string, {Region? region}) async {
     print("parse $string for region: ${region?.code}");
     try {
       final result = await plugin.parse(string, regionCode: region?.code);
@@ -35,7 +35,7 @@ class Store {
     }
   }
 
-  Future<String> format(String string, Region region) async {
+  Future<String?> format(String string, Region region) async {
     print("format $string for region: ${region.code}");
     try {
       final result = await plugin.format(string, region.code);

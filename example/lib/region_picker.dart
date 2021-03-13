@@ -3,11 +3,11 @@ import 'package:phone_number_example/models/region.dart';
 
 class RegionPicker extends StatelessWidget {
   final List<Region> regions;
-  final Function(Region) onSelectedRegion;
+  final Function(Region)? onSelectedRegion;
 
   const RegionPicker({
-    Key key,
-    @required this.regions,
+    Key? key,
+    required this.regions,
     this.onSelectedRegion,
   }) : super(key: key);
 
@@ -17,7 +17,7 @@ class RegionPicker extends StatelessWidget {
       itemBuilder: (c, i) {
         final region = regions[i];
         return InkWell(
-          onTap: () => onSelectedRegion(region),
+          onTap: () => onSelectedRegion?.call(region),
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text('${region.code}'),

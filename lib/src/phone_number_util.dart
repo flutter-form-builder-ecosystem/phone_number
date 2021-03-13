@@ -23,12 +23,22 @@ class PhoneNumberUtil {
   /// Throws [PlatformException] if [phoneNumberString] is invalid
   Future<PhoneNumber> parse(
     String phoneNumberString, {
-    String regionCode,
+    String? regionCode,
   }) async {
-    final result = await _channel.invokeMapMethod<String, dynamic>('parse', {
-      'string': phoneNumberString,
-      'region': regionCode,
-    });
+    final result = await _channel.invokeMapMethod<String, dynamic>(
+      'parse',
+      {
+        'string': phoneNumberString,
+        'region': regionCode,
+      },
+    );
+
+    if (result == null) {
+      throw PlatformException(
+        code: 'PARSE_FAILED',
+        message: 'Parsing the phone number returned null',
+      );
+    }
 
     return PhoneNumber.fromJson(result);
   }
@@ -37,13 +47,22 @@ class PhoneNumberUtil {
   /// the corresponding result of a parse operation for that item. See [parse] for details.
   Future<Map<String, PhoneNumber>> parseList(
     List<String> phoneNumberStrings, {
-    String regionCode,
+    String? regionCode,
   }) async {
-    final result =
-        await _channel.invokeMapMethod<String, dynamic>('parse_list', {
-      'strings': phoneNumberStrings,
-      'region': regionCode,
-    });
+    final result = await _channel.invokeMapMethod<String, dynamic>(
+      'parse_list',
+      {
+        'strings': phoneNumberStrings,
+        'region': regionCode,
+      },
+    );
+
+    if (result == null) {
+      throw PlatformException(
+        code: 'PARSE_FAILED',
+        message: 'Parsing the phone numbers returned null',
+      );
+    }
 
     return result.map(
       (key, value) => MapEntry(
@@ -61,10 +80,20 @@ class PhoneNumberUtil {
     String phoneNumberString,
     String regionCode,
   ) async {
-    final result = await _channel.invokeMapMethod<String, dynamic>('format', {
-      'string': phoneNumberString,
-      'region': regionCode,
-    });
+    final result = await _channel.invokeMapMethod<String, dynamic>(
+      'format',
+      {
+        'string': phoneNumberString,
+        'region': regionCode,
+      },
+    );
+
+    if (result == null) {
+      throw PlatformException(
+        code: 'FORMAT_FAILED',
+        message: 'Formatting the phone number returned null',
+      );
+    }
 
     return result['formatted'];
   }
@@ -77,12 +106,15 @@ class PhoneNumberUtil {
     String phoneNumberString,
     String regionCode,
   ) async {
-    final result = await _channel.invokeMapMethod<String, dynamic>('validate', {
-      'string': phoneNumberString,
-      'region': regionCode,
-    });
+    final result = await _channel.invokeMapMethod<String, dynamic>(
+      'validate',
+      {
+        'string': phoneNumberString,
+        'region': regionCode,
+      },
+    );
 
-    return result['isValid'];
+    return result?['isValid'] ?? false;
   }
 
   /// Returns a [List] of [RegionInfo] of all supported regions.
@@ -91,13 +123,14 @@ class PhoneNumberUtil {
         .invokeMapMethod<String, int>('get_all_supported_regions');
 
     return result
-        .map(
-          (key, value) => MapEntry(
-            key,
-            RegionInfo(code: key, prefix: value),
-          ),
-        )
-        .values
-        .toList(growable: false);
+            ?.map(
+              (key, value) => MapEntry(
+                key,
+                RegionInfo(code: key, prefix: value),
+              ),
+            )
+            .values
+            .toList(growable: false) ??
+        [];
   }
 }

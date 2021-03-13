@@ -21,31 +21,33 @@ class _HomePageState extends State<HomePage> {
   final store = Store(PhoneNumberUtil());
   final key = GlobalKey<FormState>();
 
-  Region region;
-  ParseResult result;
+  Region? region;
+  ParseResult? result;
 
   bool get hasResult => result != null;
 
   Future<void> parse() async {
     setState(() => result = null);
-    if (key.currentState.validate()) {
+    if (key.currentState!.validate()) {
       dismissKeyboard();
       result = await store.parse(numberCtrl.text, region: region);
       setState(() {});
     }
   }
 
-  void format() async {
-    if (key.currentState.validate()) {
+  Future<void> format() async {
+    if (key.currentState!.validate()) {
       dismissKeyboard();
-      final formatted = await store.format(numberCtrl.text, region);
-      numberCtrl.text = formatted;
-      setState(() {});
+      final formatted = await store.format(numberCtrl.text, region!);
+      if (formatted != null) {
+        numberCtrl.text = formatted;
+        setState(() {});
+      }
     }
   }
 
   void reset() {
-    key.currentState.reset();
+    key.currentState!.reset();
     regionCtrl.text = '';
     numberCtrl.text = '';
     region = null;
@@ -53,7 +55,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {});
   }
 
-  void chooseRegions() async {
+  Future<void> chooseRegions() async {
     dismissKeyboard();
     final regions = await store.getRegions();
     await showModalBottomSheet<Region>(
@@ -113,27 +115,27 @@ class _HomePageState extends State<HomePage> {
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: RaisedButton(
+                        child: ElevatedButton(
                           child: Text('Validate'),
                           onPressed: regionCtrl.text.isEmpty ? null : validate,
                         ),
                       ),
                       Expanded(
-                        child: RaisedButton(
+                        child: ElevatedButton(
                           child: Text('Format'),
                           onPressed: regionCtrl.text.isEmpty ? null : format,
                         ),
                       ),
                       SizedBox(width: 8),
                       Expanded(
-                        child: RaisedButton(
+                        child: ElevatedButton(
                           child: Text('Parse'),
                           onPressed: parse,
                         ),
                       ),
                     ],
                   ),
-                  OutlineButton(
+                  OutlinedButton(
                     child: Text('Reset'),
                     onPressed: reset,
                   ),
@@ -141,7 +143,7 @@ class _HomePageState extends State<HomePage> {
                   if (hasResult)
                     Padding(
                       padding: const EdgeInsets.only(top: 16),
-                      child: Result(result: result),
+                      child: Result(result: result!),
                     ),
                 ],
               ),
@@ -152,8 +154,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  validate() async {
-    final isValid = await store.validate(numberCtrl.text, region);
+  Future<void> validate() async {
+    final isValid = await store.validate(numberCtrl.text, region!);
     print('isValid : ' + isValid.toString());
   }
 }
@@ -161,7 +163,10 @@ class _HomePageState extends State<HomePage> {
 class Result extends StatelessWidget {
   final ParseResult result;
 
-  const Result({Key key, this.result}) : super(key: key);
+  const Result({
+    Key? key,
+    required this.result,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -170,22 +175,37 @@ class Result extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text("Result:", style: theme.textTheme.title),
+        Text("Result:", style: theme.textTheme.headline6),
         SizedBox(height: 10),
         ...(result.hasError)
             ? [
                 Text(
                   'Error! (code: ${result.errorCode})',
-                  style: theme.textTheme.bodyText1.copyWith(color: Colors.red),
+                  style: theme.textTheme.bodyText1?.copyWith(color: Colors.red),
                 ),
               ]
             : [
-                _ResultRow(name: 'Type', value: result.phoneNumber.type.toString().split('.').last),
-                _ResultRow(name: 'E164', value: result.phoneNumber.e164),
-                _ResultRow(name: 'International', value: result.phoneNumber.international),
-                _ResultRow(name: 'National', value: result.phoneNumber.national),
-                _ResultRow(name: 'National number', value: result.phoneNumber.nationalNumber),
-                _ResultRow(name: 'Country code', value: result.phoneNumber.countryCode),
+                _ResultRow(
+                  name: 'Type',
+                  value: result.phoneNumber!.type.toString().split('.').last,
+                ),
+                _ResultRow(name: 'E164', value: result.phoneNumber!.e164),
+                _ResultRow(
+                  name: 'International',
+                  value: result.phoneNumber!.international,
+                ),
+                _ResultRow(
+                  name: 'National',
+                  value: result.phoneNumber!.national,
+                ),
+                _ResultRow(
+                  name: 'National number',
+                  value: result.phoneNumber!.nationalNumber,
+                ),
+                _ResultRow(
+                  name: 'Country code',
+                  value: result.phoneNumber!.countryCode,
+                ),
               ],
       ],
     );
@@ -196,7 +216,11 @@ class _ResultRow extends StatelessWidget {
   final String name;
   final String value;
 
-  const _ResultRow({Key key, this.name, this.value}) : super(key: key);
+  const _ResultRow({
+    Key? key,
+    required this.name,
+    required this.value,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
