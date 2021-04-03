@@ -31,6 +31,7 @@ class _HomePageState extends State<HomePage> {
     if (key.currentState!.validate()) {
       dismissKeyboard();
       result = await store.parse(numberCtrl.text, region: region);
+      print('Parse Result: $result');
       setState(() {});
     }
   }
@@ -63,6 +64,7 @@ class _HomePageState extends State<HomePage> {
       builder: (context) => RegionPicker(
         regions: regions,
         onSelectedRegion: (r) {
+          print('Region selected: $r');
           regionCtrl.text = "${r.code} (+${r.prefix})";
           setState(() => region = r);
           Navigator.of(context).pop();
