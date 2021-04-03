@@ -1,13 +1,34 @@
-import 'package:meta/meta.dart';
+import 'package:meta/meta.dart' show immutable;
 import 'package:phone_number/src/models/phone_number_type.dart';
 
+/// Represents a successfully parsed phone number
 @immutable
 class PhoneNumber {
+  /// ISO 3166-1 alpha-2 codes are two-letter country codes defined in ISO 3166-1,
+  /// part of the ISO 3166 standard[1] published by the International Organization
+  /// for Standardization (ISO), to represent countries, dependent territories, and
+  /// special areas of geographical interest.
+  ///
+  /// Example: 1
   final String countryCode;
+
+  /// E.164 is an international standard (ITU-T Recommendation), titled The international
+  /// public telecommunication numbering plan, that defines a numbering plan for the
+  /// worldwide public switched telephone network (PSTN) and some other data networks.
+  ///
+  /// Example: +14175555470
   final String e164;
+
+  /// Example: (417) 555-5470
   final String national;
+
+  /// Example: PhoneNumberType.FIXED_LINE_OR_MOBILE
   final PhoneNumberType type;
+
+  /// Example: +1 417-555-5470
   final String international;
+
+  /// Example: 4175555470
   final String nationalNumber;
 
   PhoneNumber({
@@ -73,4 +94,25 @@ class PhoneNumber {
 
     return type;
   }
+
+  @override
+  int get hashCode =>
+      countryCode.hashCode ^
+      e164.hashCode ^
+      national.hashCode ^
+      type.hashCode ^
+      international.hashCode ^
+      nationalNumber.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PhoneNumber &&
+          runtimeType == other.runtimeType &&
+          countryCode == other.countryCode &&
+          e164 == other.e164 &&
+          national == other.national &&
+          type == other.type &&
+          international == other.international &&
+          nationalNumber == other.nationalNumber;
 }
