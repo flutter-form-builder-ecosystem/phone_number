@@ -1,3 +1,7 @@
+## 0.9.0+1
+
+- Add documentation to README, PhoneNumber and RegionInfo
+
 ## 0.9.0
 
 - Add support for null safety
