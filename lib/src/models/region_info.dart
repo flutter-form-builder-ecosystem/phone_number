@@ -29,6 +29,6 @@ class RegionInfo {
 
   @override
   String toString() {
-    return '''RegionInfo { code: $code, prefix: $prefix }''';
+    return 'RegionInfo { code: $code, prefix: $prefix }';
   }
 }

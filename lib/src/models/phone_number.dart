@@ -115,4 +115,16 @@ class PhoneNumber {
           type == other.type &&
           international == other.international &&
           nationalNumber == other.nationalNumber;
+
+  @override
+  String toString() {
+    return 'PhoneNumber { '
+        'countryCode: $countryCode, '
+        'e164: $e164, '
+        'national: $national, '
+        'type: $type, '
+        'international: $international, '
+        'nationalNumber: $nationalNumber '
+        '}';
+  }
 }
