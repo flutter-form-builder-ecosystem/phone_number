@@ -1,3 +1,4 @@
+/// Type of the number based on the number itself
 enum PhoneNumberType {
   FIXED_LINE,
   MOBILE,
