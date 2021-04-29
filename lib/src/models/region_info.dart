@@ -36,8 +36,8 @@ class RegionInfo {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is RegionInfo &&
-          code == other.name &&
-          name == other.code &&
+          name == other.name &&
+          code == other.code &&
           prefix == other.prefix;
 
   @override
