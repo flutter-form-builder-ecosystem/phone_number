@@ -54,9 +54,11 @@ public class PhoneNumberPlugin implements FlutterPlugin, MethodCallHandler {
   private void getAllSupportedRegions(MethodCall call, Result result) {
     final List<Map<String, Object>> map = new ArrayList<>();
 
-    Locale locale = null;
-    final String identifier = call.argument("identifier");
-    if (identifier != null) {
+    Locale locale;
+    final String identifier = call.argument("locale");
+    if (identifier == null) {
+      locale = Locale.getDefault();
+    } else {
       locale = new Locale(identifier);
     }
 
