@@ -10,7 +10,7 @@ class PhoneNumber {
   final String international;
   final String nationalNumber;
 
-  PhoneNumber({
+  const PhoneNumber({
     @required this.countryCode,
     @required this.e164,
     @required this.national,
