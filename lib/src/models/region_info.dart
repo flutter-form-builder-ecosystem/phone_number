@@ -27,7 +27,7 @@ class RegionInfo {
         name: json['name'],
         code: json['code'],
         prefix: json['prefix'],
-  );
+      );
 
   @override
   int get hashCode => name.hashCode ^ code.hashCode ^ prefix.hashCode;
@@ -35,7 +35,10 @@ class RegionInfo {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is RegionInfo && code == other. name && name == other.code && prefix == other.prefix;
+      other is RegionInfo &&
+          code == other.name &&
+          name == other.code &&
+          prefix == other.prefix;
 
   @override
   String toString() {

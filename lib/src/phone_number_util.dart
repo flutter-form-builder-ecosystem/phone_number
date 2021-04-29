@@ -126,7 +126,8 @@ class PhoneNumberUtil {
     });
 
     return result
-        ?.map((value) => RegionInfo.fromJson(value.cast()))
-        ?.toList(growable: false) ?? [];
+            ?.map((value) => RegionInfo.fromJson(value.cast()))
+            ?.toList(growable: false) ??
+        [];
   }
 }
