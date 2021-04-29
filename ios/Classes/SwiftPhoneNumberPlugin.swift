@@ -49,17 +49,18 @@ public class SwiftPhoneNumberPlugin: NSObject, FlutterPlugin {
             locale = Locale.current
         }
 
-        result(phoneNumberKit
+        let regions = kit
             .allCountries()
-            .compactMap {
-                guard let name = locale.localizedString(forRegionCode: $0),
-                    let prefix = phoneNumberKit.countryCode(for: $0) else {
-                        return nil
+            .compactMap { code -> [String: Any]? in
+                guard let name = locale.localizedString(forRegionCode: code),
+                      let prefix = kit.countryCode(for: code) else {
+                    return nil
                 }
                 return ["name": name,
-                        "code": $0,
+                        "code": code,
                         "prefix": prefix]
-        })
+            }
+        result(regions)
     }
 
     private func format(_ call: FlutterMethodCall, result: FlutterResult) {
