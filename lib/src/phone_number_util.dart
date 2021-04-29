@@ -118,6 +118,7 @@ class PhoneNumberUtil {
   }
 
   /// Returns a [List] of [RegionInfo] of all supported regions.
+  /// Optionally pass the [locale] identifier for translating the names.
   Future<List<RegionInfo>> allSupportedRegions([String locale]) async {
     final result =
         await _channel.invokeListMethod<Map>('get_all_supported_regions', {
