@@ -13,6 +13,7 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,17 +44,27 @@ public class PhoneNumberPlugin implements FlutterPlugin, MethodCallHandler {
     }  else if (call.method.equals("validate")) {
       validate(call, result);
     } else if (call.method.equals("get_all_supported_regions")) {
-      getAllSupportedRegions(result);
+      getAllSupportedRegions(call, result);
     } else {
       result.notImplemented();
     }
   }
 
-  private void getAllSupportedRegions(Result result) {
-    final Map<String, Integer> map = new HashMap<>();
+  private void getAllSupportedRegions(MethodCall call, Result result) {
+    final List<Map<String, Integer>> map = new ArrayList<>();
+
+    Locale locale = null;
+    final String identifier = call.argument("identifier");
+    if (identifier != null) {
+      locale = new Locale(identifier);
+    }
 
     for (String region : PhoneNumberUtil.getInstance().getSupportedRegions()) {
-      map.put(region, PhoneNumberUtil.getInstance().getCountryCodeForRegion(region));
+      Map<String, Boolean> res = new HashMap<>();
+      res.put("name", new Locale("", region).getDisplayCountry(locale));
+      res.put("code", region);
+      res.put("prefix", PhoneNumberUtil.getInstance().getCountryCodeForRegion(region));
+      map.add(res);
     }
 
     result.success(map);
