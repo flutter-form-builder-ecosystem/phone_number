@@ -23,6 +23,12 @@ class RegionInfo {
     @required this.prefix,
   });
 
+  factory RegionInfo.fromJson(Map<String, dynamic> json) => RegionInfo(
+        name: json['name'],
+        code: json['code'],
+        prefix: json['prefix'],
+  );
+
   @override
   int get hashCode => name.hashCode ^ code.hashCode ^ prefix.hashCode;
 
