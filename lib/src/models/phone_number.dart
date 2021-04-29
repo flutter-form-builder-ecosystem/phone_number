@@ -31,7 +31,7 @@ class PhoneNumber {
   /// Example: 4175555470
   final String nationalNumber;
 
-  PhoneNumber({
+  const PhoneNumber({
     required this.countryCode,
     required this.e164,
     required this.national,
