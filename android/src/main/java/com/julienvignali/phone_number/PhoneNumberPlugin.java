@@ -16,6 +16,7 @@ import io.flutter.plugin.common.PluginRegistry.Registrar;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class PhoneNumberPlugin implements FlutterPlugin, MethodCallHandler {
@@ -51,7 +52,7 @@ public class PhoneNumberPlugin implements FlutterPlugin, MethodCallHandler {
   }
 
   private void getAllSupportedRegions(MethodCall call, Result result) {
-    final List<Map<String, Integer>> map = new ArrayList<>();
+    final List<Map<String, Object>> map = new ArrayList<>();
 
     Locale locale = null;
     final String identifier = call.argument("identifier");
@@ -60,7 +61,7 @@ public class PhoneNumberPlugin implements FlutterPlugin, MethodCallHandler {
     }
 
     for (String region : PhoneNumberUtil.getInstance().getSupportedRegions()) {
-      Map<String, Boolean> res = new HashMap<>();
+      Map<String, Object> res = new HashMap<>();
       res.put("name", new Locale("", region).getDisplayCountry(locale));
       res.put("code", region);
       res.put("prefix", PhoneNumberUtil.getInstance().getCountryCodeForRegion(region));

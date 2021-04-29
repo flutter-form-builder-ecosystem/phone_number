@@ -87,19 +87,13 @@ class PhoneNumberUtil {
 
   /// Returns a [List] of [RegionInfo] of all supported regions.
   Future<List<RegionInfo>> allSupportedRegions([String locale]) async {
-    final result = await _channel
-        .invokeListMethod<Map<String, dynamic>>('get_all_supported_regions', {
+    final result =
+        await _channel.invokeListMethod<Map>('get_all_supported_regions', {
       'locale': locale,
     });
 
     return result
-        .map(
-          (value) => RegionInfo(
-            name: value['name'],
-            code: value['code'],
-            prefix: value['prefix'],
-          ),
-        )
+        .map((value) => RegionInfo.fromJson(value.cast()))
         .toList(growable: false);
   }
 }

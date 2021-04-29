@@ -10,4 +10,10 @@ class RegionInfo {
     @required this.code,
     @required this.prefix,
   });
+
+  factory RegionInfo.fromJson(Map<String, dynamic> json) => RegionInfo(
+        name: json['name'],
+        code: json['code'],
+        prefix: json['prefix'],
+      );
 }
