@@ -1,3 +1,7 @@
+## 0.11.0
+
+- Get the carrier region code for the phone number associated with the device
+
 ## 0.10.0
 
 - Add the localized name of the region
