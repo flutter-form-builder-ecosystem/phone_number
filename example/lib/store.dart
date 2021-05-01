@@ -13,15 +13,14 @@ class Store {
   Future<List<Region>> getRegions() async {
     if (_regions == null) {
       final regions = await plugin.allSupportedRegions();
-      print(regions);
 
       // Filter out regions with more than 2 characters
       _regions = regions
           .where((e) => e.code.length <= 2)
-          .map((e) => Region(e.code, e.prefix))
+          .map((e) => Region(e.code, e.prefix, e.name))
           .toList(growable: false);
 
-      _regions!.sort();
+      _regions!.sort((a, b) => a.name.compareTo(b.name));
     }
     return _regions ?? [];
   }

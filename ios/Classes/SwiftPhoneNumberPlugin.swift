@@ -14,7 +14,7 @@ public class SwiftPhoneNumberPlugin: NSObject, FlutterPlugin {
         case "validate": validate(call, result: result)
         case "parse_list": parseList(call, result: result)
         case "format": format(call, result: result)
-        case "get_all_supported_regions": getAllSupportedRegions(result: result)
+        case "get_all_supported_regions": getAllSupportedRegions(call, result: result)
         default:
             result(FlutterMethodNotImplemented)
         }
@@ -40,14 +40,27 @@ public class SwiftPhoneNumberPlugin: NSObject, FlutterPlugin {
         result(res)
     }
     
-    private func getAllSupportedRegions(result: FlutterResult) {
-        var map: [String: Int] = [:]
-        kit.allCountries().forEach { (regionCode) in
-            if let countryCode = kit.countryCode(for: regionCode) {
-                map[regionCode] = Int(countryCode)
-            }
+    private func getAllSupportedRegions(_ call: FlutterMethodCall, result: FlutterResult) {
+        let locale: Locale
+        if let arguments = call.arguments as? [String : Any],
+            let identifier = arguments["locale"] as? String {
+            locale = Locale(identifier: identifier)
+        } else {
+            locale = Locale.current
         }
-        result(map)
+
+        let regions = kit
+            .allCountries()
+            .compactMap { code -> [String: Any]? in
+                guard let name = locale.localizedString(forRegionCode: code),
+                      let prefix = kit.countryCode(for: code) else {
+                    return nil
+                }
+                return ["name": name,
+                        "code": code,
+                        "prefix": prefix]
+            }
+        result(regions)
     }
 
     private func format(_ call: FlutterMethodCall, result: FlutterResult) {

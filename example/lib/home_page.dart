@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> parse() async {
     setState(() => result = null);
     if (key.currentState!.validate()) {
-      dismissKeyboard();
+      dismissKeyboard(context);
       result = await store.parse(numberCtrl.text, region: region);
       print('Parse Result: $result');
       setState(() {});
@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> format() async {
     if (key.currentState!.validate()) {
-      dismissKeyboard();
+      dismissKeyboard(context);
       final formatted = await store.format(numberCtrl.text, region!);
       if (formatted != null) {
         numberCtrl.text = formatted;
@@ -57,28 +57,31 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> chooseRegions() async {
-    dismissKeyboard();
+    dismissKeyboard(context);
+
     final regions = await store.getRegions();
-    await showModalBottomSheet<Region>(
-      context: context,
-      builder: (context) => RegionPicker(
-        regions: regions,
-        onSelectedRegion: (r) {
-          print('Region selected: $r');
-          regionCtrl.text = "${r.code} (+${r.prefix})";
-          setState(() => region = r);
-          Navigator.of(context).pop();
-        },
-      ),
+
+    final route = MaterialPageRoute<Region>(
+      fullscreenDialog: true,
+      builder: (_) => RegionPicker(regions: regions),
     );
+
+    final selectedRegion = await Navigator.of(context).push<Region>(route);
+
+    if (selectedRegion != null) {
+      print('Region selected: $selectedRegion');
+      regionCtrl.text = "${selectedRegion.name} (+${selectedRegion.prefix})";
+      setState(() => region = selectedRegion);
+    }
   }
 
-  void dismissKeyboard() => FocusScope.of(context).unfocus();
+  void dismissKeyboard(BuildContext context) =>
+      FocusScope.of(context).unfocus();
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: dismissKeyboard,
+      onTap: () => dismissKeyboard(context),
       child: Scaffold(
         appBar: AppBar(title: Text('Phone Number')),
         body: SingleChildScrollView(
@@ -122,13 +125,14 @@ class _HomePageState extends State<HomePage> {
                           onPressed: regionCtrl.text.isEmpty ? null : validate,
                         ),
                       ),
+                      SizedBox(width: 8),
                       Expanded(
                         child: ElevatedButton(
                           child: Text('Format'),
                           onPressed: regionCtrl.text.isEmpty ? null : format,
                         ),
                       ),
-                      SizedBox(width: 8),
+                      VerticalDivider(),
                       Expanded(
                         child: ElevatedButton(
                           child: Text('Parse'),
