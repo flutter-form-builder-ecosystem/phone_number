@@ -1,3 +1,7 @@
+## 0.9.0+2
+
+- Fix missing 'toll free' phone number type
+
 ## 0.9.0+1
 
 - Add documentation to README, PhoneNumber and RegionInfo

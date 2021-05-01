@@ -62,6 +62,9 @@ class PhoneNumber {
       case 'fixedOrMobile':
         type = PhoneNumberType.FIXED_LINE_OR_MOBILE;
         break;
+      case 'tollFree':
+        type = PhoneNumberType.TOLL_FREE;
+        break;
       case 'premiumRate':
         type = PhoneNumberType.PREMIUM_RATE;
         break;
