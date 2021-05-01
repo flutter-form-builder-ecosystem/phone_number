@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:phone_number_example/models/region.dart';
+
+import 'models/region.dart';
 
 class RegionPicker extends StatefulWidget {
   final List<Region> regions;
-  final Function(Region)? onSelectedRegion;
 
   const RegionPicker({
     Key? key,
-    required this.regions,
-    this.onSelectedRegion,
+    required List<Region> this.regions,
   }) : super(key: key);
 
   @override
@@ -17,50 +16,99 @@ class RegionPicker extends StatefulWidget {
 
 class _RegionPickerState extends State<RegionPicker> {
   late List<Region> _regions;
+  final _ctrl = TextEditingController();
 
   @override
   void initState() {
     _regions = widget.regions;
+    _ctrl.addListener(() {
+      setState(() => _regions = _filtered(_ctrl.text));
+    });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TextField(
-          onChanged: (text) {
-            setState(() {
-              _regions = widget.regions
-                  .where((element) =>
-                      element.code.contains(text.toUpperCase()) ||
-                      element.prefix.toString().contains(text))
-                  .toList(growable: false);
-            });
-          },
-          decoration: InputDecoration(
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-            hintText: 'Search for country code...',
-            border: UnderlineInputBorder(),
-          ),
-        ),
-        Expanded(
-          child: ListView.separated(
-            itemBuilder: (c, i) {
-              final region = _regions[i];
-              return ListTile(
-                onTap: () => widget.onSelectedRegion?.call(region),
-                title: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text('${region.code} (+${region.prefix})'),
+    return Scaffold(
+      appBar: AppBar(title: Text("Available regions")),
+      body: Scrollbar(
+        child: Column(
+          children: [
+            TextField(
+              controller: _ctrl,
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.all(16),
+                hintText: 'Search...',
+                border: UnderlineInputBorder(),
+                suffixIcon: IconButton(
+                  icon: Icon(Icons.clear),
+                  onPressed: _ctrl.clear,
                 ),
-              );
-            },
-            separatorBuilder: (c, i) => Divider(height: 0),
-            itemCount: _regions.length,
-          ),
+              ),
+            ),
+            Expanded(
+              child: ListView.separated(
+                itemCount: _regions.length,
+                separatorBuilder: (_, i) => Divider(height: 0),
+                itemBuilder: (context, i) {
+                  final region = _regions[i];
+                  return InkWell(
+                    onTap: () => Navigator.of(context).pop(region),
+                    child: _RegionListTile(region: region),
+                  );
+                },
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
+    );
+  }
+
+  List<Region> _filtered(String input) {
+    return widget.regions.where(
+      (elt) {
+        return elt.code.toUpperCase().contains(input.toUpperCase()) ||
+            elt.prefix.toString().contains(input) ||
+            elt.name.toLowerCase().startsWith(input.toLowerCase());
+      },
+    ).toList(growable: false);
+  }
+}
+
+class _RegionListTile extends StatelessWidget {
+  const _RegionListTile({
+    Key? key,
+    required Region region,
+  })   : _region = region,
+        super(key: key);
+
+  final Region _region;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      visualDensity: VisualDensity.standard,
+      title: Row(
+        children: [
+          SizedBox(
+            width: 50,
+            child: Text(
+              _region.code,
+              style: TextStyle(
+                color: Colors.grey,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Text(_region.name),
+          Spacer(),
+          Text(
+            '+${_region.prefix}',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
     );
   }
 }

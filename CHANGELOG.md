@@ -1,3 +1,7 @@
+## 0.10.0
+
+- Add the localized name of the region
+
 ## 0.9.0+2
 
 - Fix missing 'toll free' phone number type
