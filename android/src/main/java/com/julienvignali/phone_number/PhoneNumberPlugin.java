@@ -1,5 +1,8 @@
 package com.julienvignali.phone_number;
 
+import android.content.Context;
+import android.telephony.TelephonyManager;
+
 import androidx.annotation.NonNull;
 
 import com.google.i18n.phonenumbers.AsYouTypeFormatter;
@@ -12,7 +15,6 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,9 +24,11 @@ import java.util.Map;
 public class PhoneNumberPlugin implements FlutterPlugin, MethodCallHandler {
 
   private MethodChannel channel;
+  private Context context;
 
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
+    context = flutterPluginBinding.getApplicationContext();
     channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "com.julienvignali/phone_number");
     channel.setMethodCallHandler(this);
   }
@@ -36,18 +40,28 @@ public class PhoneNumberPlugin implements FlutterPlugin, MethodCallHandler {
 
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
-    if (call.method.equals("parse")) {
-      parse(call, result);
-    } else if (call.method.equals("parse_list")) {
-      parseList(call, result);
-    } else if (call.method.equals("format")) {
-      format(call, result);
-    }  else if (call.method.equals("validate")) {
-      validate(call, result);
-    } else if (call.method.equals("get_all_supported_regions")) {
-      getAllSupportedRegions(call, result);
-    } else {
-      result.notImplemented();
+    switch (call.method) {
+      case "parse":
+        parse(call, result);
+        break;
+      case "parse_list":
+        parseList(call, result);
+        break;
+      case "format":
+        format(call, result);
+        break;
+      case "validate":
+        validate(call, result);
+        break;
+      case "get_all_supported_regions":
+        getAllSupportedRegions(call, result);
+        break;
+      case "carrier_region_code":
+        carrierRegionCode(result);
+        break;
+      default:
+        result.notImplemented();
+        break;
     }
   }
 
@@ -71,6 +85,11 @@ public class PhoneNumberPlugin implements FlutterPlugin, MethodCallHandler {
     }
 
     result.success(map);
+  }
+
+  private void carrierRegionCode(Result result) {
+    TelephonyManager tm = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
+    result.success(tm.getNetworkCountryIso());
   }
 
   private void validate(MethodCall call, Result result) {
@@ -189,11 +208,7 @@ public class PhoneNumberPlugin implements FlutterPlugin, MethodCallHandler {
       for (String string : strings) {
         HashMap<String, String> stringResult = parseStringAndRegion(string, region, util);
 
-        if (stringResult != null) {
-          res.put(string, stringResult);
-        } else {
-          res.put(string, null);
-        }
+        res.put(string, stringResult);
       }
 
       result.success(res);

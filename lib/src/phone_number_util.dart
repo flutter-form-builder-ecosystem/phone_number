@@ -130,4 +130,8 @@ class PhoneNumberUtil {
             .toList(growable: false) ??
         [];
   }
+
+  /// Return the region code for the device's phone number.
+  Future<String> carrierRegionCode() async =>
+      await _channel.invokeMethod('carrier_region_code') ?? '';
 }

@@ -15,6 +15,7 @@ public class SwiftPhoneNumberPlugin: NSObject, FlutterPlugin {
         case "parse_list": parseList(call, result: result)
         case "format": format(call, result: result)
         case "get_all_supported_regions": getAllSupportedRegions(call, result: result)
+        case "carrier_region_code": carrierRegionCode(result: result)
         default:
             result(FlutterMethodNotImplemented)
         }
@@ -61,6 +62,10 @@ public class SwiftPhoneNumberPlugin: NSObject, FlutterPlugin {
                         "prefix": prefix]
             }
         result(regions)
+    }
+
+    private func carrierRegionCode(result: FlutterResult) {
+        result(PhoneNumberKit.defaultRegionCode())
     }
 
     private func format(_ call: FlutterMethodCall, result: FlutterResult) {
