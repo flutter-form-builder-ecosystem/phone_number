@@ -22,6 +22,7 @@ dev_dependencies:
 flutter:
 
   assets:
+    - lib/web/js/libphonenumber.js
     - assets/js/libphonenumber.js
 
   plugin:

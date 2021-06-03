@@ -2,12 +2,37 @@
 
 PhoneNumber is a Flutter plugin that allows you to parse, validate and format international phone numbers.
 
-The plugin uses the native libraries [libphonenumber](https://github.com/google/libphonenumber) for Android and [PhoneNumberKit](https://github.com/marmelroy/PhoneNumberKit) pod for iOS.
+The plugin uses the native libraries [libphonenumber](https://github.com/google/libphonenumber) for Android & Web and [PhoneNumberKit](https://github.com/marmelroy/PhoneNumberKit) pod for iOS.
 
 | Library        | Version   |
 | -------------- | --------- |
 | libphonenumber | `8.12.18` |
 | PhoneNumberKit | `3.3.3`   |
+
+## Web
+### Update index.html
+
+In your app directory, edit `web/index.html` to add the following
+
+```html
+
+<!DOCTYPE html>
+<html>
+    <head>
+        ...
+    </head>
+    <body>
+    
+        ...
+
+        <script src="packages/phone_number/web/js/libphonenumber.js"></script>
+
+        ...
+
+        <script src="main.dart.js" type="application/javascript"></script>
+    </body>
+</html>
+```
 
 ## Usage
 

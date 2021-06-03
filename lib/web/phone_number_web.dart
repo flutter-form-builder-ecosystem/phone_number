@@ -22,7 +22,6 @@ class PhoneNumberPlugin {
   Future<dynamic> handleMethodCall(MethodCall call, ) async {
     switch (call.method) {
       case 'parse':
-        print("parse : ${call.arguments}, opopzdq");
         return parse(call);
       case 'parse_list':
         return parse_list(call);
@@ -43,28 +42,20 @@ class PhoneNumberPlugin {
   }
 
   Future<Map<String, String>> parse(MethodCall call) async {
-    print("yolo");
     String? region = call.arguments["region"];
-    region = "FR";
     String? string = call.arguments["string"];
-    print("qzdqzkopjjg");
 
     if (string == null || region == null) {
-      print("zdqzd");
       throw(Exception("InvalidParameters, Invalid 'string' parameter."));
     } else {
       if (string.isEmpty|| region.isEmpty) {
-        print("qzdqzd");
         throw(Exception("InvalidParameters, Invalid 'string' parameter."));
       }
-      print("grasmoulox");
       Map<String, String>? res = parseStringAndRegion(string, region);
 
       if (res != null) {
-        print("result :($res)");
         return res;
       } else {
-        print("result is null");
         throw(Exception("InvalidNumber, Number " + string + " is invalid"));
       }
     }
@@ -148,7 +139,7 @@ class PhoneNumberPlugin {
   }
 
   Future<List<Map<String, dynamic>>> getAllSupportedRegions(MethodCall call) async {
-    final List<Map<String, dynamic>> map = <Map<String, Object>>[];
+    final List<Map<String, dynamic>> map = <Map<String, dynamic>>[];
 
     // Locale locale;
     // final String? identifier = call.arguments["locale"];
@@ -173,17 +164,14 @@ class PhoneNumberPlugin {
 
   Map<String, String>? parseStringAndRegion(String string, String region) {
     try {
-      print("ihozqhd");
       final PhoneNumberUtilJsImpl util = PhoneNumberUtilJsImpl.getInstance();
-      print("coucou");
       final PhoneNumberJsImpl phoneNumber = util.parse(string, region);
-      print("czeqdz");
+
 
       if (!util.isValidNumber(phoneNumber)) {
         return null;
       }
 
-      print("qzzdqzdqz");
       // Try to parse the string to a phone number for a given region.
 
       // If the parsing is successful, we return a map containing :
@@ -211,7 +199,6 @@ class PhoneNumberPlugin {
        */
 
       int type = util.getNumberType(phoneNumber);
-      print("type");
       return  {
         "type": numberTypeToString(type),
         "e164": util.format(phoneNumber, 0),
@@ -220,9 +207,7 @@ class PhoneNumberPlugin {
         "country_code": phoneNumber.getCountryCode().toString(),
         "national_number": phoneNumber.getNationalNumber().toString()
       };
-    } catch (e, s) {
-      print("error : $e");
-      print(s);
+    } catch (e) {
       return null;
     }
   }
