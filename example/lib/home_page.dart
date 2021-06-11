@@ -25,6 +25,7 @@ class _HomePageState extends State<HomePage> {
   ParseResult? result;
 
   bool get hasResult => result != null;
+  String? _devicesRegionCode;
 
   Future<void> parse() async {
     setState(() => result = null);
@@ -45,6 +46,11 @@ class _HomePageState extends State<HomePage> {
         setState(() {});
       }
     }
+  }
+
+  Future<void> fetchDevicesRegionCode() async {
+    final code = await store.carrierRegionCode();
+    setState(() => _devicesRegionCode = code);
   }
 
   void reset() {
@@ -84,76 +90,77 @@ class _HomePageState extends State<HomePage> {
       onTap: () => dismissKeyboard(context),
       child: Scaffold(
         appBar: AppBar(title: Text('Phone Number')),
-        body: SingleChildScrollView(
-          child: Padding(
+        body: Form(
+          key: key,
+          child: ListView(
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-            child: Form(
-              key: key,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  TextFormField(
-                    controller: numberCtrl,
-                    autocorrect: false,
-                    enableSuggestions: false,
-                    autofocus: true,
-                    keyboardType: TextInputType.phone,
-                    validator: (v) => v?.isEmpty == true ? 'Required' : null,
+            children: [
+              TextFormField(
+                controller: numberCtrl,
+                autocorrect: false,
+                enableSuggestions: false,
+                autofocus: true,
+                keyboardType: TextInputType.phone,
+                validator: (v) => v?.isEmpty == true ? 'Required' : null,
+                decoration: InputDecoration(
+                  labelText: 'Phone Number',
+                  helperText: '',
+                ),
+              ),
+              InkWell(
+                onTap: chooseRegions,
+                child: IgnorePointer(
+                  child: TextFormField(
+                    controller: regionCtrl,
                     decoration: InputDecoration(
-                      labelText: 'Phone Number',
+                      labelText: 'Region',
                       helperText: '',
                     ),
                   ),
-                  InkWell(
-                    onTap: chooseRegions,
-                    child: IgnorePointer(
-                      child: TextFormField(
-                        controller: regionCtrl,
-                        decoration: InputDecoration(
-                          labelText: 'Region',
-                          helperText: '',
-                        ),
-                      ),
+                ),
+              ),
+              SizedBox(height: 20),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: ElevatedButton(
+                      child: Text('Validate'),
+                      onPressed: regionCtrl.text.isEmpty ? null : validate,
                     ),
                   ),
-                  SizedBox(height: 20),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: ElevatedButton(
-                          child: Text('Validate'),
-                          onPressed: regionCtrl.text.isEmpty ? null : validate,
-                        ),
-                      ),
-                      SizedBox(width: 8),
-                      Expanded(
-                        child: ElevatedButton(
-                          child: Text('Format'),
-                          onPressed: regionCtrl.text.isEmpty ? null : format,
-                        ),
-                      ),
-                      VerticalDivider(),
-                      Expanded(
-                        child: ElevatedButton(
-                          child: Text('Parse'),
-                          onPressed: parse,
-                        ),
-                      ),
-                    ],
-                  ),
-                  OutlinedButton(
-                    child: Text('Reset'),
-                    onPressed: reset,
-                  ),
-                  SizedBox(height: 20),
-                  if (hasResult)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 16),
-                      child: Result(result: result!),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: ElevatedButton(
+                      child: Text('Format'),
+                      onPressed: regionCtrl.text.isEmpty ? null : format,
                     ),
+                  ),
+                  VerticalDivider(),
+                  Expanded(
+                    child: ElevatedButton(
+                      child: Text('Parse'),
+                      onPressed: parse,
+                    ),
+                  ),
                 ],
               ),
-            ),
+              OutlinedButton(
+                child: Text('Reset'),
+                onPressed: reset,
+              ),
+              OutlinedButton(
+                child: Text('Region Code'),
+                onPressed: fetchDevicesRegionCode,
+              ),
+              if (_devicesRegionCode != null)
+                RegionCode(code: _devicesRegionCode!),
+              SizedBox(height: 20),
+              if (hasResult)
+                Padding(
+                  padding: const EdgeInsets.only(top: 16),
+                  child: Result(result: result!),
+                ),
+            ],
           ),
         ),
       ),
@@ -163,6 +170,28 @@ class _HomePageState extends State<HomePage> {
   Future<void> validate() async {
     final isValid = await store.validate(numberCtrl.text, region!);
     print('isValid : ' + isValid.toString());
+  }
+}
+
+class RegionCode extends StatelessWidget {
+  const RegionCode({
+    Key? key,
+    required this.code,
+  }) : super(key: key);
+
+  final String code;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text.rich(
+      TextSpan(
+        children: [
+          TextSpan(text: 'Device Region code: '),
+          TextSpan(text: code, style: TextStyle(color: Colors.blue)),
+        ],
+      ),
+      textAlign: TextAlign.center,
+    );
   }
 }
 
