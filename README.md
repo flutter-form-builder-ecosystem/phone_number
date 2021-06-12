@@ -111,3 +111,10 @@ It is possible to fetch the region code from the device. This will give you the 
 ```dart
 String code = await plugin.carrierRegionCode();
 ```
+
+## Contributors
+<a href="https://github.com/nashfive/phone_number/graphs/contributors">
+  <img src="https://contributors-img.web.app/image?repo=nashfive/phone_number" />
+</a>
+
+Made with [contributors-img](https://contributors-img.web.app).
