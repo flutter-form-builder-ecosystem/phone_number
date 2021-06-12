@@ -103,3 +103,11 @@ const List<Map<String, dynamic>> countries = [
   ...
 ]
 ```
+
+### Device Region code
+
+It is possible to fetch the region code from the device. This will give you the two letter country code. (e.g. US, UK, ...)
+
+```dart
+String code = await plugin.carrierRegionCode();
+```

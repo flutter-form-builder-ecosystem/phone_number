@@ -1,3 +1,7 @@
+## 0.11.0+1
+
+- Update documentation and example for carrier region code
+
 ## 0.11.0
 
 - Get the carrier region code for the phone number associated with the device
