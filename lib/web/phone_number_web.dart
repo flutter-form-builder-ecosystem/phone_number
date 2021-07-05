@@ -36,7 +36,7 @@ class PhoneNumberPlugin {
       default:
         throw PlatformException(
             code: 'Unimplemented',
-            details: "The url_launcher plugin for web doesn't implement "
+            details: "The phone_number plugin for web doesn't implement "
                 "the method '${call.method}'");
     }
   }
@@ -46,17 +46,16 @@ class PhoneNumberPlugin {
     String? string = call.arguments["string"];
 
     if (string == null) {
-      throw(Exception("InvalidParameters, Invalid 'string' parameter."));
+      throw(PlatformException(code:"InvalidParameters", details: "Invalid 'string' parameter."));
     } else {
       if (string.isEmpty) {
-        throw(Exception("InvalidParameters, Invalid 'string' parameter."));
+        throw(PlatformException(code: "InvalidParameters", details: "Invalid 'string' parameter."));
       }
       Map<String, String>? res = parseStringAndRegion(string, region);
-
       if (res != null) {
         return res;
       } else {
-        throw(Exception("InvalidNumber, Number " + string + " is invalid"));
+        throw(PlatformException(code:"InvalidNumber", details: "Number " + string + " is invalid"));
       }
     }
   }
@@ -66,7 +65,7 @@ class PhoneNumberPlugin {
     List<String>? strings = call.arguments["strings"];
 
     if (strings == null || strings.isEmpty) {
-      throw(Exception("InvalidParameters, Invalid 'string' parameter."));
+      throw(PlatformException(code:"InvalidParameters", details: "Invalid 'string' parameter."));
     } else {
 
       Map<String, Map<String, String>?> res = Map<String, Map<String, String>>();
@@ -87,7 +86,7 @@ class PhoneNumberPlugin {
     final String? number = call.arguments["string"];
 
     if (number == null) {
-      throw(Exception("InvalidParameters, Invalid 'string' parameter."));
+      throw(PlatformException(code:"InvalidParameters", details: "Invalid 'string' parameter."));
     }
 
     try {
@@ -105,7 +104,7 @@ class PhoneNumberPlugin {
 
       return res;
     } catch (_) {
-      throw(Exception("InvalidNumber, Number " + number + " is invalid"));
+      throw(PlatformException(code:"InvalidNumber", details: "Number " + number + " is invalid"));
     }
   }
 
@@ -114,7 +113,7 @@ class PhoneNumberPlugin {
     final String? number = call.arguments["string"];
 
     if (number == null) {
-      throw(Exception("InvalidParameters, Invalid 'string' parameter."));
+      throw(PlatformException(code:"InvalidParameters", details: "Invalid 'string' parameter."));
     }
 
     try {
@@ -127,7 +126,7 @@ class PhoneNumberPlugin {
 
       return res;
     } catch(_) {
-      throw(Exception("InvalidNumber, Number " + number + " is invalid"));
+      throw(PlatformException(code:"InvalidNumber", details: "Number " + number + " is invalid"));
     }
   }
 

@@ -51,7 +51,6 @@ class Store {
       final result = await plugin.validate(string, region.code);
       return result;
     } on PlatformException catch (e) {
-      print(e.toString());
       return false;
     }
   }
