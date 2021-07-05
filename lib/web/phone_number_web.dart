@@ -45,10 +45,10 @@ class PhoneNumberPlugin {
     String? region = call.arguments["region"];
     String? string = call.arguments["string"];
 
-    if (string == null || region == null) {
+    if (string == null) {
       throw(Exception("InvalidParameters, Invalid 'string' parameter."));
     } else {
-      if (string.isEmpty|| region.isEmpty) {
+      if (string.isEmpty) {
         throw(Exception("InvalidParameters, Invalid 'string' parameter."));
       }
       Map<String, String>? res = parseStringAndRegion(string, region);
@@ -62,7 +62,7 @@ class PhoneNumberPlugin {
   }
 
   Future<Map<String, Map<String, String>?>> parse_list(MethodCall call) async {
-    String region = call.arguments["region"];
+    String? region = call.arguments["region"];
     List<String>? strings = call.arguments["strings"];
 
     if (strings == null || strings.isEmpty) {
@@ -162,11 +162,10 @@ class PhoneNumberPlugin {
     return map;
   }
 
-  Map<String, String>? parseStringAndRegion(String string, String region) {
+  Map<String, String>? parseStringAndRegion(String string, String? region) {
     try {
       final PhoneNumberUtilJsImpl util = PhoneNumberUtilJsImpl.getInstance();
       final PhoneNumberJsImpl phoneNumber = util.parse(string, region);
-
 
       if (!util.isValidNumber(phoneNumber)) {
         return null;

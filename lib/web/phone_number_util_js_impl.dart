@@ -17,7 +17,7 @@ class PhoneNumberUtilJsImpl{
   external int getCountryCodeForRegion(String regionCode);
 
   @JS('parse')
-  external PhoneNumberJsImpl parse(String numberToParse, String defaultRegion);
+  external PhoneNumberJsImpl parse(String numberToParse, String? defaultRegion);
 
   @JS('isValidNumberForRegion')
   external bool isValidNumberForRegion(PhoneNumberJsImpl number, String regionCode);
