@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:phone_number_example/home_page.dart';
+import 'package:phone_number_example/home.dart';
 
 void main() => runApp(App());
+
+void dismissKeyboard(BuildContext context) => FocusScope.of(context).unfocus();
 
 class App extends StatelessWidget {
   @override
@@ -9,7 +11,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'Helvetica Neue'),
-      home: HomePage(),
+      home: Home(),
     );
   }
 }
