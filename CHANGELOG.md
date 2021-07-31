@@ -1,3 +1,7 @@
+## 0.11.0+2
+
+- Migrate deprecated package `pedantic` to `flutter_lints`
+
 ## 0.11.0+1
 
 - Update documentation and example for carrier region code
