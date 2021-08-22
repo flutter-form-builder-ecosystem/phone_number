@@ -38,15 +38,15 @@ PhoneNumber phoneNumber = await PhoneNumberUtil().parse(springFieldUSASimpleNoRe
 Parsing a valid phone number results in a phone number object:
 
 ```dart
-// PhoneNumber{
-//  e164: +14175555470,
-//  type: PhoneNumberType.FIXED_LINE_OR_MOBILE,
-//  international: +1 417-555-5470,
-//  national: (417) 555-5470,
-//  countryCode: 1,
-//  nationalNumber: 4175555470,
-//  errorCode: null,
-//}
+PhoneNumber{
+  e164: +14175555470,
+  type: PhoneNumberType.FIXED_LINE_OR_MOBILE,
+  international: +1 417-555-5470,
+  national: (417) 555-5470,
+  countryCode: 1,
+  nationalNumber: 4175555470,
+  errorCode: null,
+}
 ```
 
 ### Validating
@@ -85,6 +85,20 @@ RegionInfo region = RegionInfo('US', 1);
 String formatted = await PhoneNumberUtil().format(springFieldUSASimpleNoRegion, region.code); // +1 (417) 555-5470
 ```
 
+#### As-you-type formatting
+
+Attach the provided `PhoneNumberEditingController` to a TextField to format its text as the user type.
+
+There are 3 formatting behavior:
+
+- `PhoneInputBehavior.strict`: always format, do not accept non dialable chars.
+- `PhoneInputBehavior.cancellable`: stop formatting when a separator is removed, do not accept non dialable chars.
+- `PhoneInputBehavior.lenient` _(default)_: stop formatting when either a non dialable char is inserted or a separator is removed.
+
+Example video: https://www.youtube.com/watch?v=rlLGVXCi-2Y.
+
+See `example/lib/autoformat_page.dart` for a detailed implementation.
+
 ### Regions
 
 Fetching regions (country code and prefixes).
@@ -113,6 +127,7 @@ String code = await plugin.carrierRegionCode();
 ```
 
 ## Contributors
+
 <a href="https://github.com/nashfive/phone_number/graphs/contributors">
   <img src="https://contributors-img.web.app/image?repo=nashfive/phone_number" />
 </a>

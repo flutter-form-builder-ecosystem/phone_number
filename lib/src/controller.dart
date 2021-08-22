@@ -28,6 +28,29 @@ enum PhoneInputBehavior {
   lenient,
 }
 
+// Implementation details:
+//
+// Custom patterns are used in favor of RegExp for better performance.
+//
+// Formatting sets super.value after await, but does not check whether the
+// current value is still oldValue.
+// By testing, this is better than checking before setting, which causes
+// inputs to be ignored if the user types too fast.
+//
+// The reason a TextEditingController is used instead of a TextInputFormatter
+// is that we need to call async functions, so this allows us to call them
+// without needing the user to provide a callback.
+//
+// The new offsets are calculated by counting characters instead of using
+// getRememberedPosition() from AsYouTypeFormatter.
+// The reasons for doing so are:
+//
+// - There is no such method for the iOS version, so this would have to be
+//  used in iOS anyways.
+// - This allows two positions to be remembered for the selection, though just
+//  remembering the end of the selection is fine, as it only formats after
+//  insertion or deletion.
+
 /// A [TextEditingController] which applies phone number formatting.
 ///
 /// The property [behavior] allows you to control how the controller handles

@@ -1,3 +1,7 @@
+## 0.12.0
+
+- Add a `PhoneNumberEditingController` to allow "as-you-type" formatting.
+
 ## 0.11.0+2
 
 - Migrate deprecated package `pedantic` to `flutter_lints`
