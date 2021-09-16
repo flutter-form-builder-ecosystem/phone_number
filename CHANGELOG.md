@@ -1,3 +1,7 @@
+## 0.12.0+1
+
+- Bumps libphonenumber to v8.12.32
+
 ## 0.12.0
 
 - Add a `PhoneNumberEditingController` to allow "as-you-type" formatting.
