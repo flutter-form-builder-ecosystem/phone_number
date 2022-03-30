@@ -1,3 +1,8 @@
+## 0.12.0+2
+
+- Bumps PhoneNumberKit to v3.3.4
+- Bumps libphonenumber to v8.12.45
+
 ## 0.12.0+1
 
 - Bumps libphonenumber to v8.12.32
