@@ -1,3 +1,11 @@
+# Development status
+
+07/07/2022: I don't have the time to provide support for this plugin anymore. If someone wants to take it over and add some (long awaited) features such as web support, please contact me so I can transfer you the ownership of the project.
+
+Otherwise, I will unfortunately have to mark this as __discontinued__ on `pub.dev`.
+
+---
+
 # Phone Number for Flutter
 
 PhoneNumber is a Flutter plugin that allows you to parse, validate and format international phone numbers.
