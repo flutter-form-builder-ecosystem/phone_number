@@ -54,4 +54,15 @@ class Store {
       return false;
     }
   }
+
+  Future<String?> carrierRegionCode() async {
+    print("fetching carrierRegionCode");
+    try {
+      final result = await plugin.carrierRegionCode();
+      return result;
+    } on PlatformException catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
 }

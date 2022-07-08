@@ -1,3 +1,24 @@
+## 0.12.0+2
+
+- Bumps PhoneNumberKit to v3.3.4
+- Bumps libphonenumber to v8.12.45
+
+## 0.12.0+1
+
+- Bumps libphonenumber to v8.12.32
+
+## 0.12.0
+
+- Add a `PhoneNumberEditingController` to allow "as-you-type" formatting.
+
+## 0.11.0+2
+
+- Migrate deprecated package `pedantic` to `flutter_lints`
+
+## 0.11.0+1
+
+- Update documentation and example for carrier region code
+
 ## 0.11.0
 
 - Get the carrier region code for the phone number associated with the device
