@@ -40,5 +40,6 @@ jobs:
       #   run: flutter test
       - name: Build example
         run: |
+          cd example
           flutter build appbundle --debug
           flutter build ios --debug --no-codesign
