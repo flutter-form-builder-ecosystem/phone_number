@@ -36,8 +36,8 @@ jobs:
         run: flutter format --dry-run --set-exit-if-changed .
       - name: Analyze static code
         run: flutter analyze
-      - name: Run tests
-        run: flutter test
+      # - name: Run tests
+      #   run: flutter test
       - name: Build example
         run: |
           flutter build appbundle --debug
