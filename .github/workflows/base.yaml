@@ -19,15 +19,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Flutter action
-        uses: subosito/flutter-action@v2
-        with:
-          channel: ${{ matrix.channel }}
 
       - name: Check broken links
         uses: JustinBeckwith/linkinator-action@v1
         with:
           paths: "**/*.md"
+
+      - name: Flutter action
+        uses: subosito/flutter-action@v2
+        with:
+          channel: ${{ matrix.channel }}
 
       - name: Install dependencies
         run: flutter pub get
