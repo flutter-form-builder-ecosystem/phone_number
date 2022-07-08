@@ -4,7 +4,7 @@ Thank you for considering and taking the time to contribute to this project!
 
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with collaborators of this repository before making a change.
 
-Please note we have a [code of conduct](https://github.com/flutter-form-builder-ecosystem/phone_number/blob/master/CODE_OF_CONDUCT.md), please follow it in all your interactions with the project.
+Please note we have a [code of conduct](https://github.com/flutter-form-builder-ecosystem/phone_number/blob/main/CODE_OF_CONDUCT.md), please follow it in all your interactions with the project.
 
 ## How to Contribute
 
@@ -51,9 +51,9 @@ You don't need to code to help us. If you have a suggestion of a feature, see a 
 
 We really appreciate contributions via GitHub pull requests. To contribute take the following steps:
 
- * Make sure you are up to date with the latest code on the master: 
+ * Make sure you are up to date with the latest code on the main: 
    * `git fetch upstream`
-   * `git checkout upstream/master -b <name_of_your_branch>`
+   * `git checkout upstream/main -b <name_of_your_branch>`
  * Apply your changes
  * Verify your local changes and fix potential warnings/errors:
    * Check formatting: `flutter format .`
