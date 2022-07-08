@@ -1,0 +1,43 @@
+name: Base
+
+on:
+  push:
+    branches: [main]
+
+  pull_request:
+    branches: [main]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        channel: [stable, beta]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Flutter action
+        uses: subosito/flutter-action@v2
+        with:
+          channel: ${{ matrix.channel }}
+
+      - name: Check broken links
+        uses: JustinBeckwith/linkinator-action@v1
+        with:
+          paths: "**/*.md"
+
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Format code
+        run: flutter format --dry-run --set-exit-if-changed .
+      - name: Analyze static code
+        run: flutter analyze
+      - name: Run tests
+        run: flutter test
+      - name: Build example
+        run: |
+          flutter build appbundle --debug
+          flutter build ios --debug --no-codesign
