@@ -80,7 +80,7 @@ class _RegionListTile extends StatelessWidget {
   const _RegionListTile({
     Key? key,
     required Region region,
-  })   : _region = region,
+  })  : _region = region,
         super(key: key);
 
   final Region _region;
