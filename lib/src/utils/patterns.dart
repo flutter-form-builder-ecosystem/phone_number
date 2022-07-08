@@ -17,11 +17,12 @@ abstract class BaseCodeUnitPattern implements Pattern {
         offset: start,
       );
     }
+    return null;
   }
 
   @override
   Iterable<Match> allMatches(String string, [int start = 0, int? end]) sync* {
-    final length;
+    final int length;
     if (end != null) {
       length = min(end + 1, string.length);
     } else {

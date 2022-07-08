@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:phone_number/phone_number.dart';
 import 'package:phone_number_example/main.dart';
 import 'package:phone_number_example/models/parse_result.dart';
 import 'package:phone_number_example/models/region.dart';
