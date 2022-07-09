@@ -1,4 +1,6 @@
 /// Type of the number based on the number itself
+// ignore_for_file: constant_identifier_names
+
 enum PhoneNumberType {
   FIXED_LINE,
   MOBILE,
