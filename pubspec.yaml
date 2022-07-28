@@ -11,12 +11,20 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
+  js: ^0.6.3
   meta: ^1.3.0
 
 dev_dependencies:
   flutter_lints: ^1.0.4
 
 flutter:
+
+  assets:
+    - lib/web/js/libphonenumber.js
+    - assets/js/libphonenumber.js
+
   plugin:
     platforms:
       android:
@@ -24,3 +32,6 @@ flutter:
         pluginClass: PhoneNumberPlugin
       ios:
         pluginClass: PhoneNumberPlugin
+      web:
+        pluginClass: PhoneNumberPlugin
+        fileName: web/phone_number_web.dart
