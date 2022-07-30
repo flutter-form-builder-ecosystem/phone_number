@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:phone_number/phone_number.dart';
 import 'package:phone_number_example/main.dart';
@@ -22,13 +24,13 @@ const List<BehaviorOption> options = [
 class AutoformatPage extends StatefulWidget {
   final Store store;
 
-  AutoformatPage(this.store);
+  const AutoformatPage(this.store, {super.key});
 
   @override
-  _AutoformatPageState createState() => _AutoformatPageState();
+  AutoformatPageState createState() => AutoformatPageState();
 }
 
-class _AutoformatPageState extends State<AutoformatPage> {
+class AutoformatPageState extends State<AutoformatPage> {
   final key = GlobalKey<FormState>();
 
   Region? region;
@@ -62,10 +64,11 @@ class _AutoformatPageState extends State<AutoformatPage> {
       builder: (_) => RegionPicker(regions: regions),
     );
 
+    if (!mounted) return;
     final selectedRegion = await Navigator.of(context).push<Region>(route);
 
     if (selectedRegion != null) {
-      print('Region selected: $selectedRegion');
+      log('Region selected: $selectedRegion');
       regionCtrl.text = "${selectedRegion.name} (+${selectedRegion.prefix})";
       region = selectedRegion;
       update();
@@ -84,7 +87,7 @@ class _AutoformatPageState extends State<AutoformatPage> {
             autocorrect: false,
             enableSuggestions: false,
             autofocus: true,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: 'Phone Number',
               helperText: '',
             ),
@@ -94,7 +97,7 @@ class _AutoformatPageState extends State<AutoformatPage> {
             child: IgnorePointer(
               child: TextFormField(
                 controller: regionCtrl,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Region',
                   helperText: '',
                 ),

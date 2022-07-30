@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/services.dart';
 import 'package:phone_number/phone_number.dart';
 import 'package:phone_number_example/models/parse_result.dart';
@@ -26,7 +28,7 @@ class Store {
   }
 
   Future<ParseResult> parse(String string, {Region? region}) async {
-    print("parse $string for region: ${region?.code}");
+    log("parse $string for region: ${region?.code}");
     try {
       final result = await plugin.parse(string, regionCode: region?.code);
       return ParseResult(result);
@@ -36,7 +38,7 @@ class Store {
   }
 
   Future<String?> format(String string, Region region) async {
-    print("format $string for region: ${region.code}");
+    log("format $string for region: ${region.code}");
     try {
       final result = await plugin.format(string, region.code);
       return result;
@@ -46,23 +48,23 @@ class Store {
   }
 
   Future<bool> validate(String string, Region region) async {
-    print("validate $string for region: ${region.code}");
+    log("validate $string for region: ${region.code}");
     try {
       final result = await plugin.validate(string, region.code);
       return result;
     } on PlatformException catch (e) {
-      print(e.toString());
+      log(e.toString());
       return false;
     }
   }
 
   Future<String?> carrierRegionCode() async {
-    print("fetching carrierRegionCode");
+    log("fetching carrierRegionCode");
     try {
       final result = await plugin.carrierRegionCode();
       return result;
     } on PlatformException catch (e) {
-      print(e.toString());
+      log(e.toString());
       return null;
     }
   }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:phone_number_example/main.dart';
 import 'package:phone_number_example/models/parse_result.dart';
@@ -13,13 +15,13 @@ import 'package:phone_number_example/store.dart';
 class FunctionsPage extends StatefulWidget {
   final Store store;
 
-  FunctionsPage(this.store);
+  const FunctionsPage(this.store, {super.key});
 
   @override
-  _FunctionsPageState createState() => _FunctionsPageState();
+  FunctionsPageState createState() => FunctionsPageState();
 }
 
-class _FunctionsPageState extends State<FunctionsPage> {
+class FunctionsPageState extends State<FunctionsPage> {
   final regionCtrl = TextEditingController();
   final numberCtrl = TextEditingController();
   final key = GlobalKey<FormState>();
@@ -35,7 +37,7 @@ class _FunctionsPageState extends State<FunctionsPage> {
     if (key.currentState!.validate()) {
       dismissKeyboard(context);
       result = await widget.store.parse(numberCtrl.text, region: region);
-      print('Parse Result: $result');
+      log('Parse Result: $result');
       setState(() {});
     }
   }
@@ -75,10 +77,11 @@ class _FunctionsPageState extends State<FunctionsPage> {
       builder: (_) => RegionPicker(regions: regions),
     );
 
+    if (!mounted) return;
     final selectedRegion = await Navigator.of(context).push<Region>(route);
 
     if (selectedRegion != null) {
-      print('Region selected: $selectedRegion');
+      log('Region selected: $selectedRegion');
       regionCtrl.text = "${selectedRegion.name} (+${selectedRegion.prefix})";
       setState(() => region = selectedRegion);
     }
@@ -98,7 +101,7 @@ class _FunctionsPageState extends State<FunctionsPage> {
             autofocus: true,
             keyboardType: TextInputType.phone,
             validator: (v) => v?.isEmpty == true ? 'Required' : null,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: 'Phone Number',
               helperText: '',
             ),
@@ -108,48 +111,48 @@ class _FunctionsPageState extends State<FunctionsPage> {
             child: IgnorePointer(
               child: TextFormField(
                 controller: regionCtrl,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Region',
                   helperText: '',
                 ),
               ),
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Row(
             children: <Widget>[
               Expanded(
                 child: ElevatedButton(
-                  child: Text('Validate'),
                   onPressed: regionCtrl.text.isEmpty ? null : validate,
+                  child: const Text('Validate'),
                 ),
               ),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Expanded(
                 child: ElevatedButton(
-                  child: Text('Format'),
                   onPressed: regionCtrl.text.isEmpty ? null : format,
+                  child: const Text('Format'),
                 ),
               ),
-              VerticalDivider(),
+              const VerticalDivider(),
               Expanded(
                 child: ElevatedButton(
-                  child: Text('Parse'),
                   onPressed: parse,
+                  child: const Text('Parse'),
                 ),
               ),
             ],
           ),
           OutlinedButton(
-            child: Text('Reset'),
             onPressed: reset,
+            child: const Text('Reset'),
           ),
           OutlinedButton(
-            child: Text('Region Code'),
             onPressed: fetchDevicesRegionCode,
+            child: const Text('Region Code'),
           ),
           if (_devicesRegionCode != null) RegionCode(code: _devicesRegionCode!),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           if (hasResult)
             Padding(
               padding: const EdgeInsets.only(top: 16),
@@ -162,15 +165,15 @@ class _FunctionsPageState extends State<FunctionsPage> {
 
   Future<void> validate() async {
     final isValid = await widget.store.validate(numberCtrl.text, region!);
-    print('isValid : ' + isValid.toString());
+    log('isValid : $isValid');
   }
 }
 
 class RegionCode extends StatelessWidget {
   const RegionCode({
-    Key? key,
+    super.key,
     required this.code,
-  }) : super(key: key);
+  });
 
   final String code;
 
@@ -179,8 +182,8 @@ class RegionCode extends StatelessWidget {
     return Text.rich(
       TextSpan(
         children: [
-          TextSpan(text: 'Device Region code: '),
-          TextSpan(text: code, style: TextStyle(color: Colors.blue)),
+          const TextSpan(text: 'Device Region code: '),
+          TextSpan(text: code, style: const TextStyle(color: Colors.blue)),
         ],
       ),
       textAlign: TextAlign.center,
@@ -192,9 +195,9 @@ class Result extends StatelessWidget {
   final ParseResult result;
 
   const Result({
-    Key? key,
+    super.key,
     required this.result,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -204,7 +207,7 @@ class Result extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text("Result:", style: theme.textTheme.headline6),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         ...(result.hasError)
             ? [
                 Text(
@@ -245,10 +248,9 @@ class _ResultRow extends StatelessWidget {
   final String value;
 
   const _ResultRow({
-    Key? key,
     required this.name,
     required this.value,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -258,7 +260,7 @@ class _ResultRow extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Flexible(child: Text('$name', style: theme.textTheme.bodyText2)),
+          Flexible(child: Text(name, style: theme.textTheme.bodyText2)),
           Flexible(child: Text(value, style: theme.textTheme.bodyText1)),
         ],
       ),
