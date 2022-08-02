@@ -104,7 +104,9 @@ public class PhoneNumberPlugin implements FlutterPlugin, MethodCallHandler {
     try {
       final PhoneNumberUtil util = PhoneNumberUtil.getInstance();
       final PhoneNumber phoneNumber = util.parse(number, region);
-      boolean isValid = util.isValidNumberForRegion(phoneNumber, region);
+      boolean isValid = region == null
+              ? util.isValidNumber(phoneNumber)
+              : util.isValidNumberForRegion(phoneNumber, region);
 
       HashMap<String, Boolean> res = new HashMap<>();
       res.put("isValid", isValid);

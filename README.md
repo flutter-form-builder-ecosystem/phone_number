@@ -51,7 +51,7 @@ PhoneNumber{
 
 ### Validating
 
-Validating a phone number requires both the phone number string and the region country code.
+Validating a phone number requires the phone number string and optional the region country code.
 
 ```dart
 PhoneNumberUtil plugin = PhoneNumberUtil();

@@ -50,7 +50,7 @@ class Store {
   Future<bool> validate(String string, Region region) async {
     log("validate $string for region: ${region.code}");
     try {
-      final result = await plugin.validate(string, region.code);
+      final result = await plugin.validate(string, regionCode: region.code);
       return result;
     } on PlatformException catch (e) {
       log(e.toString());
