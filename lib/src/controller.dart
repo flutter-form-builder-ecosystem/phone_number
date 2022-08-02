@@ -73,17 +73,17 @@ class PhoneNumberEditingController extends TextEditingController {
   PhoneNumberEditingController(
     this._phoneNumberUtil, {
     required this.regionCode,
-    String? text,
+    super.text,
     this.behavior = PhoneInputBehavior.lenient,
-  }) : super(text: text);
+  });
 
   /// Creates a controller for an editable text field from an initial [TextEditingValue].
   PhoneNumberEditingController.fromValue(
     this._phoneNumberUtil,
-    TextEditingValue? value, {
+    super.value, {
     required this.regionCode,
     this.behavior = PhoneInputBehavior.lenient,
-  }) : super.fromValue(value);
+  }) : super.fromValue();
 
   @override
   set value(TextEditingValue newValue) => _formatAndSet(value, newValue);

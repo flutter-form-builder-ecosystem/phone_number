@@ -6,7 +6,7 @@ class Region extends Comparable<Region> {
   Region(this.code, this.prefix, this.name);
 
   @override
-  int compareTo(region) => code.compareTo(region.code);
+  int compareTo(other) => code.compareTo(other.code);
 
   @override
   String toString() {

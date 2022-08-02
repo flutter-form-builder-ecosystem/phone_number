@@ -13,6 +13,8 @@ const List<Tab> tabs = [
 class Home extends StatelessWidget {
   final store = Store(PhoneNumberUtil());
 
+  Home({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -21,8 +23,8 @@ class Home extends StatelessWidget {
         length: tabs.length,
         child: Scaffold(
           appBar: AppBar(
-            title: Text('Phone Number'),
-            bottom: TabBar(tabs: tabs),
+            title: const Text('Phone Number'),
+            bottom: const TabBar(tabs: tabs),
           ),
           body: TabBarView(
             children: [

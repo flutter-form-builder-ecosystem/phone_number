@@ -6,15 +6,15 @@ class RegionPicker extends StatefulWidget {
   final List<Region> regions;
 
   const RegionPicker({
-    Key? key,
-    required List<Region> this.regions,
-  }) : super(key: key);
+    super.key,
+    required this.regions,
+  });
 
   @override
-  _RegionPickerState createState() => _RegionPickerState();
+  RegionPickerState createState() => RegionPickerState();
 }
 
-class _RegionPickerState extends State<RegionPicker> {
+class RegionPickerState extends State<RegionPicker> {
   late List<Region> _regions;
   final _ctrl = TextEditingController();
 
@@ -30,7 +30,7 @@ class _RegionPickerState extends State<RegionPicker> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Available regions")),
+      appBar: AppBar(title: const Text("Available regions")),
       body: Scrollbar(
         child: Column(
           children: [
@@ -39,9 +39,9 @@ class _RegionPickerState extends State<RegionPicker> {
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.all(16),
                 hintText: 'Search...',
-                border: UnderlineInputBorder(),
+                border: const UnderlineInputBorder(),
                 suffixIcon: IconButton(
-                  icon: Icon(Icons.clear),
+                  icon: const Icon(Icons.clear),
                   onPressed: _ctrl.clear,
                 ),
               ),
@@ -49,7 +49,7 @@ class _RegionPickerState extends State<RegionPicker> {
             Expanded(
               child: ListView.separated(
                 itemCount: _regions.length,
-                separatorBuilder: (_, i) => Divider(height: 0),
+                separatorBuilder: (_, i) => const Divider(height: 0),
                 itemBuilder: (context, i) {
                   final region = _regions[i];
                   return InkWell(
@@ -78,10 +78,8 @@ class _RegionPickerState extends State<RegionPicker> {
 
 class _RegionListTile extends StatelessWidget {
   const _RegionListTile({
-    Key? key,
     required Region region,
-  })  : _region = region,
-        super(key: key);
+  }) : _region = region;
 
   final Region _region;
 
@@ -95,17 +93,17 @@ class _RegionListTile extends StatelessWidget {
             width: 50,
             child: Text(
               _region.code,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.grey,
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
           Text(_region.name),
-          Spacer(),
+          const Spacer(),
           Text(
             '+${_region.prefix}',
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
         ],
       ),
