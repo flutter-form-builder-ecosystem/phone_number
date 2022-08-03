@@ -51,20 +51,20 @@ PhoneNumber{
 
 ### Validating
 
-Validating a phone number requires the phone number string and optional the region country code.
+Validating a phone number requires the phone number string and an optional region country code.
 
 ```dart
 PhoneNumberUtil plugin = PhoneNumberUtil();
 
 String springFieldUSASimpleNoRegion = '4175555470';
 RegionInfo region = RegionInfo('US', 1);
-bool isValid = await plugin.validate(springFieldUSASimpleNoRegion, region.code);
+bool isValid = await plugin.validate(springFieldUSASimpleNoRegion, region: region.code);
 
 String springFieldUSASimple = '+14175555470';
-bool isValid = await plugin.validate(springFieldUSASimple, region.code);
+bool isValid = await plugin.validate(springFieldUSASimple, region: region.code);
 
 String springFieldUSA = '+1-417-555-5470';
-bool isValid = await plugin.validate(springFieldUSA, region.code);
+bool isValid = await plugin.validate(springFieldUSA, region: region.code);
 ```
 
 ### Formatting

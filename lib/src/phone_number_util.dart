@@ -102,7 +102,7 @@ class PhoneNumberUtil {
   ///
   /// Returns true if [phoneNumberString] is valid otherwise return false
   ///
-  /// Can pass [regionCode] to validate number in specific region
+  /// Optional [regionCode] to validate number in specific region
   Future<bool> validate(
     String phoneNumberString, {
     String? regionCode,
