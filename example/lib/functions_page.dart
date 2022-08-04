@@ -6,6 +6,7 @@ import 'package:phone_number_example/models/parse_result.dart';
 import 'package:phone_number_example/models/region.dart';
 import 'package:phone_number_example/region_picker.dart';
 import 'package:phone_number_example/store.dart';
+import 'package:phone_number_example/utils.dart';
 
 /// TODO: Add previous hardcoded examples
 // parse '17449106505' (MX)
@@ -164,11 +165,27 @@ class FunctionsPageState extends State<FunctionsPage> {
   }
 
   Future<void> validate() async {
-    final isValid = await widget.store.validate(
-      numberCtrl.text,
-      region: region,
-    );
-    log('isValid : $isValid');
+    if (key.currentState!.validate()) {
+      dismissKeyboard(context);
+
+      final isValid = await widget.store.validate(
+        numberCtrl.text,
+        region: region,
+      );
+      log('isValid : $isValid');
+
+      if (!mounted) return;
+      Utils.showSnackBar(
+        context,
+        "Validation Status: ${isValid ? 'Valid' : 'Invalid'}",
+        prefix: Icon(
+          isValid ? Icons.check_circle : Icons.cancel,
+          size: 20,
+          color: isValid ? Colors.green : Colors.red,
+        ),
+        color: Colors.white,
+      );
+    }
   }
 }
 
