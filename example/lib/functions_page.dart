@@ -123,7 +123,7 @@ class FunctionsPageState extends State<FunctionsPage> {
             children: <Widget>[
               Expanded(
                 child: ElevatedButton(
-                  onPressed: regionCtrl.text.isEmpty ? null : validate,
+                  onPressed: validate,
                   child: const Text('Validate'),
                 ),
               ),
@@ -164,7 +164,10 @@ class FunctionsPageState extends State<FunctionsPage> {
   }
 
   Future<void> validate() async {
-    final isValid = await widget.store.validate(numberCtrl.text, region!);
+    final isValid = await widget.store.validate(
+      numberCtrl.text,
+      region: region,
+    );
     log('isValid : $isValid');
   }
 }

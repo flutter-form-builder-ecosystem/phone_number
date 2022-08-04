@@ -98,14 +98,15 @@ class PhoneNumberUtil {
     return result['formatted'];
   }
 
-  /// Validate [phoneNumberString] for [regionCode]
+  /// Validate [phoneNumberString]
   ///
-  /// Returns true if [phoneNumberString] is valid in region with code [regionCode]
-  /// otherwise return false
+  /// Returns true if [phoneNumberString] is valid otherwise return false
+  ///
+  /// Optional [regionCode] to validate number in specific region
   Future<bool> validate(
-    String phoneNumberString,
-    String regionCode,
-  ) async {
+    String phoneNumberString, {
+    String? regionCode,
+  }) async {
     final result = await _channel.invokeMapMethod<String, dynamic>(
       'validate',
       {
