@@ -30,7 +30,8 @@ class AutoformatPage extends StatefulWidget {
   AutoformatPageState createState() => AutoformatPageState();
 }
 
-class AutoformatPageState extends State<AutoformatPage> {
+class AutoformatPageState extends State<AutoformatPage>
+    with AutomaticKeepAliveClientMixin {
   final key = GlobalKey<FormState>();
 
   Region? region;
@@ -77,6 +78,7 @@ class AutoformatPageState extends State<AutoformatPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Form(
       key: key,
       child: ListView(
@@ -120,4 +122,7 @@ class AutoformatPageState extends State<AutoformatPage> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
