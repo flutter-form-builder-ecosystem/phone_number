@@ -27,10 +27,17 @@ jobs:
         with:
           paths: "**/*.md"
 
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+
       - name: Flutter action
         uses: subosito/flutter-action@v2
         with:
           channel: ${{ matrix.channel }}
+          architecture: x64
 
       - name: Install dependencies
         run: flutter pub get
