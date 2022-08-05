@@ -22,7 +22,8 @@ class FunctionsPage extends StatefulWidget {
   FunctionsPageState createState() => FunctionsPageState();
 }
 
-class FunctionsPageState extends State<FunctionsPage> {
+class FunctionsPageState extends State<FunctionsPage>
+    with AutomaticKeepAliveClientMixin {
   final regionCtrl = TextEditingController();
   final numberCtrl = TextEditingController();
   final key = GlobalKey<FormState>();
@@ -90,6 +91,7 @@ class FunctionsPageState extends State<FunctionsPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Form(
       key: key,
       child: ListView(
@@ -187,6 +189,9 @@ class FunctionsPageState extends State<FunctionsPage> {
       );
     }
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class RegionCode extends StatelessWidget {
