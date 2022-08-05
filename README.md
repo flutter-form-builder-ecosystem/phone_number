@@ -183,6 +183,7 @@ Donate or become a sponsor of Flutter Form Builder Ecosystem
 
 ## Roadmap
 
+- [Web support](https://github.com/flutter-form-builder-ecosystem/phone_number/issues/44)
 - [Simplify example code](https://github.com/flutter-form-builder-ecosystem/phone_number/issues/79)
 - [Implement integration tests](https://github.com/flutter-form-builder-ecosystem/phone_number/issues/74)
 - [Solve open issues](https://github.com/flutter-form-builder-ecosystem/phone_number/issues), [prioritizing bugs](https://github.com/flutter-form-builder-ecosystem/phone_number/labels/bug)
