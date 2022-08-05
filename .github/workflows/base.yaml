@@ -3,6 +3,8 @@ name: Base
 on:
   push:
     branches: [main]
+    tags:
+      - '*'
 
   pull_request:
     branches: [main]
@@ -25,16 +27,10 @@ jobs:
         with:
           paths: "**/*.md"
 
-      - name: Setup Java
-        uses: actions/setup-java@v2
-        with:
-          distribution: 'zulu'
-          java-version: '11'
       - name: Flutter action
         uses: subosito/flutter-action@v2
         with:
           channel: ${{ matrix.channel }}
-          architecture: x64
 
       - name: Install dependencies
         run: flutter pub get
@@ -44,8 +40,42 @@ jobs:
         run: flutter analyze
       # - name: Run tests
       #   run: flutter test
+      - name: Check publish warnings
+        run: dart pub publish --dry-run
       - name: Build example
         run: |
           cd example
           flutter build appbundle --debug
           flutter build ios --debug --no-codesign
+
+  deployment:
+    if: ${{ github.ref_type == 'tag' }}
+    needs: build
+    name: Deploy package
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Configure enviroment
+      uses: actions/checkout@v3
+    - name: Download flutter
+      uses: subosito/flutter-action@v2
+      with:
+        channel: 'stable'
+    - name: Setup pub credentials
+      shell: bash
+      env:
+        PUB_DEV_PUBLISH_ACCESS_TOKEN: ${{ secrets.PUB_DEV_PUBLISH_ACCESS_TOKEN }}
+        PUB_DEV_PUBLISH_REFRESH_TOKEN: ${{ secrets.PUB_DEV_PUBLISH_REFRESH_TOKEN }}
+      run: |
+        sh ./tool/pub_login.sh
+    - name: Publish package
+      run: dart pub publish -v -f
+    - name: Build changelog
+      id: github_release
+      uses: mikepenz/release-changelog-builder-action@v3
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Create release
+      uses: softprops/action-gh-release@v0.1.14
+      with:
+        body: ${{steps.github_release.outputs.changelog}}
