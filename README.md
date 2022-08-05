@@ -1,6 +1,38 @@
-# Phone Number for Flutter
+# Phone Number
 
-PhoneNumber is a Flutter plugin that allows you to parse, validate and format international phone numbers.
+Phone Number is a Flutter plugin that allows you to parse, validate, format and other utilities for to international phone numbers.
+
+[![Pub Version](https://img.shields.io/pub/v/phone_number?logo=flutter&style=for-the-badge)](https://pub.dev/packages/phone_number)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/flutter-form-builder-ecosystem/phone_number/Base?logo=github&style=for-the-badge)](https://github.com/flutter-form-builder-ecosystem/phone_number/actions/workflows/base.yaml)
+[![Codecov](https://img.shields.io/codecov/c/github/flutter-form-builder-ecosystem/phone_number?logo=codecov&style=for-the-badge)](https://codecov.io/gh/flutter-form-builder-ecosystem/phone_number/)
+[![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/flutter-form-builder-ecosystem/phone_number?logo=codefactor&style=for-the-badge)](https://www.codefactor.io/repository/github/flutter-form-builder-ecosystem/phone_number)
+[![Discord](https://img.shields.io/discord/985922433578053673?logo=discord&style=for-the-badge)](https://discord.com/invite/25KNPMJQf2)
+___
+
+- [Features](#features)
+    - [Dependencies](#dependencies)
+- [Use](#use)
+    - [Setup](#setup)
+    - [Basic use](#basic-use)
+    - [Especific uses](#especific-uses)
+- [Support](#support)
+    - [Contribute](#contribute)
+    - [Questions and answers](#questions-and-answers)
+    - [Donations](#donations)
+- [Roadmap](#roadmap)
+- [Ecosystem](#ecosystem)
+- [Thanks to](#thanks-to)
+    - [Contributors](#contributors)
+
+## Features
+
+- Parsing phone number
+- Validate phone number
+- Format phone number
+- Get region from phone number
+- Get region from device
+
+### Dependencies
 
 The plugin uses the native libraries [libphonenumber](https://github.com/google/libphonenumber) for Android and [PhoneNumberKit](https://github.com/marmelroy/PhoneNumberKit) pod for iOS.
 
@@ -9,31 +41,68 @@ The plugin uses the native libraries [libphonenumber](https://github.com/google/
 | libphonenumber | `8.12.52` |
 | PhoneNumberKit | `3.4.4`   |
 
-## Usage
+## Use
 
-### Parsing
+### Setup
 
-Parse a phone number with region prefix.
+No especific setup required: only install the dependency and use :)
+
+### Basic use
+
 
 ```dart
 String springFieldUSASimple = '+14175555470';
+
+// Parsing
 PhoneNumber phoneNumber = await PhoneNumberUtil().parse(springFieldUSASimple);
+
+// Validate
+bool isValid = await plugin.validate(springFieldUSASimple);
+
+// Format
+RegionInfo region = RegionInfo('US', 1);
+String formatted = await PhoneNumberUtil().format(springFieldUSASimple, region.code); // +1 (417) 555-5470
 ```
+
+See [pud.dev example tab](https://pub.dev/packages/phone_number/example) or [github code](example/lib/main.dart) for more details
+
+### Especific use
+
+#### Phone number with dashes
 
 Parse a phone number with region prefix and dashes.
 
 ```dart
+// Parsing
 String springFieldUSA = '+1-417-555-5470';
 PhoneNumber phoneNumber = await PhoneNumberUtil().parse(springFieldUSA);
+
+// Validate
+bool isValid = await PhoneNumberUtil().validate(springFieldUSA);
+
+// Format
+String formatted = await PhoneNumberUtil().format(springFieldUSASimpleNoRegion, region.code); // +1 (417) 555-5470
 ```
+
+#### Phone number without region (national number)
 
 Parse a phone number string without the region prefix. **Region required**. Country calling codes can be found [here](https://en.wikipedia.org/wiki/List_of_country_calling_codes)
 
 ```dart
 String springFieldUSASimpleNoRegion = '4175555470';
 RegionInfo region = RegionInfo('US', 1);
+
+// Parsing
 PhoneNumber phoneNumber = await PhoneNumberUtil().parse(springFieldUSASimpleNoRegion, region: region);
+
+// Validate
+bool isValid = await PhoneNumberUtil().validate(springFieldUSASimpleNoRegion, region: region.code);
+
+// Format
+String formatted = await PhoneNumberUtil().format(springFieldUSASimpleNoRegion, region.code); // (417) 555-5470
 ```
+
+#### Parsing model result
 
 Parsing a valid phone number results in a phone number object:
 
@@ -49,42 +118,6 @@ PhoneNumber{
 }
 ```
 
-### Validating
-
-Validating a phone number requires the phone number string and an optional region country code.
-
-```dart
-PhoneNumberUtil plugin = PhoneNumberUtil();
-
-String springFieldUSASimpleNoRegion = '4175555470';
-RegionInfo region = RegionInfo('US', 1);
-bool isValid = await plugin.validate(springFieldUSASimpleNoRegion, region: region.code);
-
-String springFieldUSASimple = '+14175555470';
-bool isValid = await plugin.validate(springFieldUSASimple, region: region.code);
-
-String springFieldUSA = '+1-417-555-5470';
-bool isValid = await plugin.validate(springFieldUSA, region: region.code);
-```
-
-### Formatting
-
-Phone numbers can also be formatted for the UI to display the number.
-
-```dart
-String springFieldUSASimpleNoRegion = '4175555470';
-RegionInfo region = RegionInfo('US', 1);
-String formatted = await PhoneNumberUtil().format(springFieldUSASimpleNoRegion, region.code); // (417) 555-5470
-```
-
-PhoneNumber will not add the country prefix unless the phone number has the prefix
-
-```dart
-String springFieldUSASimpleNoRegion = '+14175555470';
-RegionInfo region = RegionInfo('US', 1);
-String formatted = await PhoneNumberUtil().format(springFieldUSASimpleNoRegion, region.code); // +1 (417) 555-5470
-```
-
 #### As-you-type formatting
 
 Attach the provided `PhoneNumberEditingController` to a TextField to format its text as the user type.
@@ -95,11 +128,11 @@ There are 3 formatting behavior:
 - `PhoneInputBehavior.cancellable`: stop formatting when a separator is removed, do not accept non dialable chars.
 - `PhoneInputBehavior.lenient` _(default)_: stop formatting when either a non dialable char is inserted or a separator is removed.
 
-Example video: https://www.youtube.com/watch?v=rlLGVXCi-2Y.
+Example video:
 
-See `example/lib/autoformat_page.dart` for a detailed implementation.
+[![Phone number editing controller demo](http://img.youtube.com/vi/rlLGVXCi-2Y/0.jpg)](http://www.youtube.com/watch?v=rlLGVXCi-2Y "Phone number editing controller demo")
 
-### Regions
+#### Regions
 
 Fetching regions (country code and prefixes).
 
@@ -118,7 +151,7 @@ const List<Map<String, dynamic>> countries = [
 ]
 ```
 
-### Device Region code
+#### Device Region code
 
 It is possible to fetch the region code from the device. This will give you the two letter country code. (e.g. US, UK, ...)
 
@@ -126,10 +159,44 @@ It is possible to fetch the region code from the device. This will give you the 
 String code = await plugin.carrierRegionCode();
 ```
 
-## Contributors
+## Support
 
-<a href="https://github.com/nashfive/phone_number/graphs/contributors">
-  <img src="https://contributors-img.web.app/image?repo=nashfive/phone_number" />
+### Contribute
+
+You have some ways to contribute to this packages
+
+ - Beginner: Reporting bugs or request new features
+ - Intermediate: Implement new features (from issues or not) and created pull requests
+ - Advanced: Join to [organization](#ecosystem) like a member and help coding, manage issues, dicuss new features and other things
+
+ See [contribution file](https://github.com/flutter-form-builder-ecosystem/.github/blob/main/CONTRIBUTING.md) for more details
+
+### Questions and answers
+
+You can join to [our Discord server](https://discord.gg/25KNPMJQf2)
+
+### Donations
+
+Donate or become a sponsor of Flutter Form Builder Ecosystem
+
+[![Become a Sponsor](https://opencollective.com/flutter-form-builder-ecosystem/tiers/sponsor.svg?avatarHeight=56)](https://opencollective.com/flutter-form-builder-ecosystem)
+
+## Roadmap
+
+- [Simplify example code](https://github.com/flutter-form-builder-ecosystem/phone_number/issues/79)
+- [Implement integration tests](https://github.com/flutter-form-builder-ecosystem/phone_number/issues/74)
+- [Solve open issues](https://github.com/flutter-form-builder-ecosystem/phone_number/issues), [prioritizing bugs](https://github.com/flutter-form-builder-ecosystem/phone_number/labels/bug)
+
+## Ecosystem
+
+Take a look to [our awesome ecosystem](https://github.com/flutter-form-builder-ecosystem) and all packages in there
+
+## Thanks to
+
+### Contributors
+
+<a href="https://github.com/flutter-form-builder-ecosystem/phone_number/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=flutter-form-builder-ecosystem/phone_number" />
 </a>
 
-Made with [contributors-img](https://contributors-img.web.app).
+Made with [contrib.rocks](https://contrib.rocks).
