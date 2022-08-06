@@ -4,13 +4,18 @@ import 'package:phone_number/src/models/phone_number_type.dart';
 /// Represents a successfully parsed phone number
 @immutable
 class PhoneNumber {
+  /// Returns the country calling code for a specific region.
+  ///
+  /// Example: 1 for the US, 44 for the UK, 1 for Canada, 61 for Australia, etc.
+  final String countryCode;
+
   /// ISO 3166-1 alpha-2 codes are two-letter country codes defined in ISO 3166-1,
   /// part of the ISO 3166 standard[1] published by the International Organization
   /// for Standardization (ISO), to represent countries, dependent territories, and
   /// special areas of geographical interest.
   ///
-  /// Example: 1
-  final String countryCode;
+  /// Example: US
+  final String regionCode;
 
   /// E.164 is an international standard (ITU-T Recommendation), titled The international
   /// public telecommunication numbering plan, that defines a numbering plan for the
@@ -33,6 +38,7 @@ class PhoneNumber {
 
   const PhoneNumber({
     required this.countryCode,
+    required this.regionCode,
     required this.e164,
     required this.national,
     required this.type,
@@ -43,6 +49,7 @@ class PhoneNumber {
   factory PhoneNumber.fromJson(Map<String, dynamic> json) {
     return PhoneNumber(
         countryCode: json['country_code'],
+        regionCode: json['region_code'],
         e164: json['e164'],
         national: json['national'],
         type: _mapStringToPhoneNumberType(json['type'])!,
@@ -101,6 +108,7 @@ class PhoneNumber {
   @override
   int get hashCode =>
       countryCode.hashCode ^
+      regionCode.hashCode ^
       e164.hashCode ^
       national.hashCode ^
       type.hashCode ^
@@ -113,6 +121,7 @@ class PhoneNumber {
       other is PhoneNumber &&
           runtimeType == other.runtimeType &&
           countryCode == other.countryCode &&
+          regionCode == other.regionCode &&
           e164 == other.e164 &&
           national == other.national &&
           type == other.type &&
@@ -123,6 +132,7 @@ class PhoneNumber {
   String toString() {
     return 'PhoneNumber { '
         'countryCode: $countryCode, '
+        'regionCode: $regionCode, '
         'e164: $e164, '
         'national: $national, '
         'type: $type, '
