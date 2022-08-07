@@ -44,6 +44,7 @@ PhoneNumber{
   international: +1 417-555-5470,
   national: (417) 555-5470,
   countryCode: 1,
+  regionCode: "US",
   nationalNumber: 4175555470,
   errorCode: null,
 }
@@ -106,6 +107,14 @@ Fetching regions (country code and prefixes).
 ```dart
 List<RegionInfo> regions = await plugin.allSupportedRegions();
 // [ RegionInfo { code: IM, prefix: 44 }, RegionInfo { code: LU, prefix: 352 }, ... ]
+```
+
+A parsed phone number will give region code as well.
+
+```dart
+String springFieldUSASimple = '+14175555470';
+PhoneNumber phoneNumber = await PhoneNumberUtil().parse(springFieldUSASimple);
+phoneNumber.regionCode; // US
 ```
 
 If you want to display all the flags alongside the regions in your UI region picker, consider having a JSON file instead of using this function. [Example JSON file](https://gist.githubusercontent.com/DmytroLisitsyn/1c31186e5b66f1d6c52da6b5c70b12ad/raw/01b1af9b267471818f4f8367852bd4a2814cbae6/country_dial_info.json)
