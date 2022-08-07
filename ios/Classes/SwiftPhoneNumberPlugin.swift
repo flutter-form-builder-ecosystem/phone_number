@@ -107,12 +107,15 @@ public class SwiftPhoneNumberPlugin: NSObject, FlutterPlugin {
             // - the number formatted as a national number and without the international prefix
             // - the number type (might not be 100% auccurate)
 
+            var regionCode = kit.getRegionCode(of: phoneNumber)
+
             return [
                 "type": phoneNumber.type.toString(),
                 "e164": kit.format(phoneNumber, toType: .e164),
                 "international": kit.format(phoneNumber, toType: .international, withPrefix: true),
                 "national": kit.format(phoneNumber, toType: .national),
                 "country_code": String(phoneNumber.countryCode),
+                "region_code": String(regionCode ?? ""),
                 "national_number": String(phoneNumber.nationalNumber)
             ]
         } catch {
