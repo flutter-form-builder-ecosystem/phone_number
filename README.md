@@ -9,12 +9,13 @@ Phone Number is a Flutter plugin that allows you to parse, validate, format and 
 [![Discord](https://img.shields.io/discord/985922433578053673?logo=discord&style=for-the-badge)](https://discord.com/invite/25KNPMJQf2)
 ___
 
+
 - [Features](#features)
     - [Dependencies](#dependencies)
-- [Use](#use)
+- [Usage](#usage)
     - [Setup](#setup)
     - [Basic use](#basic-use)
-    - [Especific uses](#especific-uses)
+    - [Specific use](#specific-use)
 - [Support](#support)
     - [Contribute](#contribute)
     - [Questions and answers](#questions-and-answers)
@@ -41,14 +42,13 @@ The plugin uses the native libraries [libphonenumber](https://github.com/google/
 | libphonenumber | `8.12.52` |
 | PhoneNumberKit | `3.4.4`   |
 
-## Use
+## Usage
 
 ### Setup
 
 No especific setup required: only install the dependency and use :)
 
 ### Basic use
-
 
 ```dart
 String springFieldUSASimple = '+14175555470';
@@ -66,7 +66,7 @@ String formatted = await PhoneNumberUtil().format(springFieldUSASimple, region.c
 
 See [pud.dev example tab](https://pub.dev/packages/phone_number/example) or [github code](example/lib/main.dart) for more details
 
-### Especific use
+### Specific use
 
 #### Phone number with dashes
 
@@ -128,9 +128,7 @@ There are 3 formatting behavior:
 - `PhoneInputBehavior.cancellable`: stop formatting when a separator is removed, do not accept non dialable chars.
 - `PhoneInputBehavior.lenient` _(default)_: stop formatting when either a non dialable char is inserted or a separator is removed.
 
-Example video:
-
-[![Phone number editing controller demo](http://img.youtube.com/vi/rlLGVXCi-2Y/0.jpg)](http://www.youtube.com/watch?v=rlLGVXCi-2Y "Phone number editing controller demo")
+Example video: [Phone number editing controller demo](http://www.youtube.com/watch?v=rlLGVXCi-2Y)
 
 #### Regions
 
@@ -153,7 +151,7 @@ const List<Map<String, dynamic>> countries = [
 
 #### Device Region code
 
-It is possible to fetch the region code from the device. This will give you the two letter country code. (e.g. US, UK, ...)
+It is possible to fetch the region code from the device. This will give you the two letter country code. (e.g. US, UK, etc.)
 
 ```dart
 String code = await plugin.carrierRegionCode();
@@ -167,9 +165,9 @@ You have some ways to contribute to this packages
 
  - Beginner: Reporting bugs or request new features
  - Intermediate: Implement new features (from issues or not) and created pull requests
- - Advanced: Join to [organization](#ecosystem) like a member and help coding, manage issues, dicuss new features and other things
+ - Advanced: Join the [organization](#ecosystem) like a member and help coding, manage issues, dicuss new features and other things
 
- See [contribution file](https://github.com/flutter-form-builder-ecosystem/.github/blob/main/CONTRIBUTING.md) for more details
+ See [contribution guide](https://github.com/flutter-form-builder-ecosystem/.github/blob/main/CONTRIBUTING.md) for more details
 
 ### Questions and answers
 
