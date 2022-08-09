@@ -26,15 +26,18 @@ public class SwiftPhoneNumberPlugin: NSObject, FlutterPlugin {
     private func validate(_ call: FlutterMethodCall, result: FlutterResult){
         guard
             let arguments = call.arguments as? [String : Any],
-            let number = arguments["string"] as? String,
-            let region = arguments["region"] as? String
+            let number = arguments["string"] as? String
+
             else {
                 result(FlutterError(code: "InvalidArgument",
                                     message: "The 'string' argument is missing.",
                                     details: nil))
                 return
         }
-        let isValid = kit.isValidPhoneNumber(number,withRegion: region);
+
+        let region = arguments["region"] as? String?
+
+        let isValid = region != nil ? kit.isValidPhoneNumber(number, withRegion: region!!) : kit.isValidPhoneNumber(number);
           let res:[String: Bool] = [
                     "isValid": isValid
                 ]
