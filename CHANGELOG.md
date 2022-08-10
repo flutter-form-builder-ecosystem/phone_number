@@ -2,6 +2,7 @@
 
 - [Breaking change] Min Flutter SDK >=3.0.0
 - Add validate international number without region code
+- Separate regionCode and countryCode
 - Refactor readme
 - Apply license BSD-3-clause
 - Bumps libphonenumber (Android) to v8.12.52
