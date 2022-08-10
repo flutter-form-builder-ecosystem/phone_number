@@ -1,3 +1,11 @@
+## 1.0.0
+
+- [Breaking change] Min Flutter SDK >=3.0.0
+- Add validate international number without region code
+- Refactor readme
+- Apply license BSD-3-clause
+- Bumps libphonenumber (Android) to v8.12.52
+
 ## 0.12.0+2
 
 - Bumps PhoneNumberKit to v3.3.4
