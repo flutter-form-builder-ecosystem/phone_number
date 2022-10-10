@@ -54,10 +54,10 @@ No especific setup required: only install the dependency and use :)
 String springFieldUSASimple = '+14175555470';
 
 // Parsing
-PhoneNumber phoneNumber = await PhoneNumberUtil().parse(springFieldUSASimple);
+PhoneNumber phoneNumber = await PhoneNumberUtil().parse(springFieldUSASimpleNoRegion, regionCode: region.code);
 
 // Validate
-bool isValid = await plugin.validate(springFieldUSASimple);
+bool isValid = await PhoneNumberUtil().validate(springFieldUSASimpleNoRegion, regionCode: region.code);
 
 // Format
 RegionInfo region = RegionInfo('US', 1);
