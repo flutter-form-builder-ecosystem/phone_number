@@ -6,7 +6,6 @@ Phone Number is a Flutter plugin that allows you to parse, validate, format and 
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/flutter-form-builder-ecosystem/phone_number/Base?logo=github&style=for-the-badge)](https://github.com/flutter-form-builder-ecosystem/phone_number/actions/workflows/base.yaml)
 [![Codecov](https://img.shields.io/codecov/c/github/flutter-form-builder-ecosystem/phone_number?logo=codecov&style=for-the-badge)](https://codecov.io/gh/flutter-form-builder-ecosystem/phone_number/)
 [![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/flutter-form-builder-ecosystem/phone_number?logo=codefactor&style=for-the-badge)](https://www.codefactor.io/repository/github/flutter-form-builder-ecosystem/phone_number)
-[![Discord](https://img.shields.io/discord/985922433578053673?logo=discord&style=for-the-badge)](https://discord.com/invite/25KNPMJQf2)
 ___
 
 
@@ -180,7 +179,7 @@ You have some ways to contribute to this packages
 
 ### Questions and answers
 
-You can join to [our Discord server](https://discord.gg/25KNPMJQf2)
+You can question or search answers on [Github discussion](https://github.com/flutter-form-builder-ecosystem/phone_number/discussions)
 
 ### Donations
 
