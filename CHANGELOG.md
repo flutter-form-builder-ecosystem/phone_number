@@ -1,3 +1,9 @@
+## 1.1.0
+
+- Bumps PhoneNumberKit to v3.5.8
+- Bumps libphonenumber to v8.13.10
+- iOS podfile now needs to be updated since PhoneNumberKit no longer updates cocoapods
+
 ## 1.0.0
 
 - [Breaking change] Min Flutter SDK >=3.0.0
