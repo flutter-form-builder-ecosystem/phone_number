@@ -231,13 +231,13 @@ class Result extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text("Result:", style: theme.textTheme.headline6),
+        Text("Result:", style: theme.textTheme.titleLarge),
         const SizedBox(height: 10),
         ...(result.hasError)
             ? [
                 Text(
                   'Error! (code: ${result.errorCode})',
-                  style: theme.textTheme.bodyText1?.copyWith(color: Colors.red),
+                  style: theme.textTheme.bodyLarge?.copyWith(color: Colors.red),
                 ),
               ]
             : [
@@ -285,8 +285,8 @@ class _ResultRow extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Flexible(child: Text(name, style: theme.textTheme.bodyText2)),
-          Flexible(child: Text(value, style: theme.textTheme.bodyText1)),
+          Flexible(child: Text(name, style: theme.textTheme.bodyMedium)),
+          Flexible(child: Text(value, style: theme.textTheme.bodyLarge)),
         ],
       ),
     );

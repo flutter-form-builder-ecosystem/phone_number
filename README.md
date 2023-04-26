@@ -3,27 +3,31 @@
 Phone Number is a Flutter plugin that allows you to parse, validate, format and other utilities for to international phone numbers.
 
 [![Pub Version](https://img.shields.io/pub/v/phone_number?logo=flutter&style=for-the-badge)](https://pub.dev/packages/phone_number)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/flutter-form-builder-ecosystem/phone_number/Base?logo=github&style=for-the-badge)](https://github.com/flutter-form-builder-ecosystem/phone_number/actions/workflows/base.yaml)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/flutter-form-builder-ecosystem/phone_number/base.yaml?branch=main&logo=github&style=for-the-badge)](https://github.com/flutter-form-builder-ecosystem/phone_number/actions/workflows/base.yaml)
 [![Codecov](https://img.shields.io/codecov/c/github/flutter-form-builder-ecosystem/phone_number?logo=codecov&style=for-the-badge)](https://codecov.io/gh/flutter-form-builder-ecosystem/phone_number/)
 [![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/flutter-form-builder-ecosystem/phone_number?logo=codefactor&style=for-the-badge)](https://www.codefactor.io/repository/github/flutter-form-builder-ecosystem/phone_number)
-[![Discord](https://img.shields.io/discord/985922433578053673?logo=discord&style=for-the-badge)](https://discord.com/invite/25KNPMJQf2)
 ___
 
-
 - [Features](#features)
-    - [Dependencies](#dependencies)
+  - [Dependencies](#dependencies)
 - [Usage](#usage)
-    - [Setup](#setup)
-    - [Basic use](#basic-use)
-    - [Specific use](#specific-use)
+  - [Setup](#setup)
+  - [Basic use](#basic-use)
+  - [Specific use](#specific-use)
+    - [Phone number with dashes](#phone-number-with-dashes)
+    - [Phone number without region (national number)](#phone-number-without-region-national-number)
+    - [Parsing model result](#parsing-model-result)
+    - [As-you-type formatting](#as-you-type-formatting)
+    - [Regions](#regions)
+    - [Device Region code](#device-region-code)
 - [Support](#support)
-    - [Contribute](#contribute)
-    - [Questions and answers](#questions-and-answers)
-    - [Donations](#donations)
+  - [Contribute](#contribute)
+  - [Questions and answers](#questions-and-answers)
+  - [Donations](#donations)
 - [Roadmap](#roadmap)
 - [Ecosystem](#ecosystem)
 - [Thanks to](#thanks-to)
-    - [Contributors](#contributors)
+  - [Contributors](#contributors)
 
 ## Features
 
@@ -60,10 +64,10 @@ end
 String springFieldUSASimple = '+14175555470';
 
 // Parsing
-PhoneNumber phoneNumber = await PhoneNumberUtil().parse(springFieldUSASimple);
+PhoneNumber phoneNumber = await PhoneNumberUtil().parse(springFieldUSASimpleNoRegion, regionCode: region.code);
 
 // Validate
-bool isValid = await plugin.validate(springFieldUSASimple);
+bool isValid = await PhoneNumberUtil().validate(springFieldUSASimpleNoRegion, regionCode: region.code);
 
 // Format
 RegionInfo region = RegionInfo('US', 1);
@@ -178,15 +182,15 @@ String code = await plugin.carrierRegionCode();
 
 You have some ways to contribute to this packages
 
- - Beginner: Reporting bugs or request new features
- - Intermediate: Implement new features (from issues or not) and created pull requests
- - Advanced: Join the [organization](#ecosystem) like a member and help coding, manage issues, dicuss new features and other things
+- Beginner: Reporting bugs or request new features
+- Intermediate: Implement new features (from issues or not) and created pull requests
+- Advanced: Join the [organization](#ecosystem) like a member and help coding, manage issues, dicuss new features and other things
 
  See [contribution guide](https://github.com/flutter-form-builder-ecosystem/.github/blob/main/CONTRIBUTING.md) for more details
 
 ### Questions and answers
 
-You can join to [our Discord server](https://discord.gg/25KNPMJQf2)
+You can question or search answers on [Github discussion](https://github.com/flutter-form-builder-ecosystem/phone_number/discussions)
 
 ### Donations
 
