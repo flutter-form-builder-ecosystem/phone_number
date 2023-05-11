@@ -1,8 +1,15 @@
-## 1.1.0
+## 2.0.0-dev.1
+
+### BREAKING CHANGE
+
+- iOS podfile now needs to be updated since PhoneNumberKit no longer updates cocoapods. Take a look on [setup](https://github.com/flutter-form-builder-ecosystem/phone_number#setup)
+- Update Flutter constrains to >= 3.10
+
+### Improvements
 
 - Bumps PhoneNumberKit to v3.5.8
 - Bumps libphonenumber to v8.13.10
-- iOS podfile now needs to be updated since PhoneNumberKit no longer updates cocoapods
+- Fix warning for constant variable `regionCode` on Swift
 
 ## 1.0.0
 
