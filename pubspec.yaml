@@ -4,7 +4,7 @@ description: Flutter plugin for parsing, formatting and validating international
 version: 2.0.0-dev.1
 homepage: https://github.com/flutter-form-builder-ecosystem
 repository: https://github.com/flutter-form-builder-ecosystem/phone_number
-issues: https://github.com/flutter-form-builder-ecosystem/phone_number/issues
+issue_tracker: https://github.com/flutter-form-builder-ecosystem/phone_number/issues
 funding: 
   - https://opencollective.com/flutter-form-builder-ecosystem
 
