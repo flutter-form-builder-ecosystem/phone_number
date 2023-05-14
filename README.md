@@ -27,7 +27,6 @@ ___
 - [Roadmap](#roadmap)
 - [Ecosystem](#ecosystem)
 - [Thanks to](#thanks-to)
-  - [Contributors](#contributors)
 
 ## Features
 
@@ -211,10 +210,4 @@ Take a look to [our awesome ecosystem](https://github.com/flutter-form-builder-e
 
 ## Thanks to
 
-### Contributors
-
-<a href="https://github.com/flutter-form-builder-ecosystem/phone_number/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=flutter-form-builder-ecosystem/phone_number" />
-</a>
-
-Made with [contrib.rocks](https://contrib.rocks).
+[All contributors](https://github.com/flutter-form-builder-ecosystem/phone_number/graphs/contributors)
