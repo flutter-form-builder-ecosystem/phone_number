@@ -1,6 +1,13 @@
-## 2.0.0-dev.1
+## 2.0.0-dev.2
 
 ### BREAKING CHANGE
+
+- Update Dart constrains to 3
+- Compile with Android SDK 33
+
+## 2.0.0-dev.1
+
+### BREAKING CHANGES
 
 - iOS podfile now needs to be updated since PhoneNumberKit no longer updates cocoapods. Take a look on [setup](https://github.com/flutter-form-builder-ecosystem/phone_number#setup)
 - Update Flutter constrains to >= 3.10
