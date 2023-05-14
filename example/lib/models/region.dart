@@ -1,4 +1,4 @@
-class Region extends Comparable<Region> {
+class Region implements Comparable<Region> {
   final String code;
   final int prefix;
   final String name;
