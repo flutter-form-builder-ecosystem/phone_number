@@ -1,3 +1,7 @@
+## 2.0.1
+- Update version on pubspec to depend on PhoneNumberKit 3.5.10
+- Update podspec to match package version 
+
 ## 2.0.0
 
 ### BREAKING CHANGES
