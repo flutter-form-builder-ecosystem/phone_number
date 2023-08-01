@@ -42,7 +42,7 @@ The plugin uses the native libraries [libphonenumber](https://github.com/google/
 
 | Library        | Version   |
 | -------------- | --------- |
-| libphonenumber | `8.13.10` |
+| libphonenumber | `8.13.17` |
 | PhoneNumberKit | `3.6.6`   |
 
 ## Usage
