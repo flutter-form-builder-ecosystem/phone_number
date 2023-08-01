@@ -42,8 +42,8 @@ The plugin uses the native libraries [libphonenumber](https://github.com/google/
 
 | Library        | Version   |
 | -------------- | --------- |
-| libphonenumber | `8.13.10` |
-| PhoneNumberKit | `3.5.10`   |
+| libphonenumber | `8.13.17` |
+| PhoneNumberKit | `3.6.6`   |
 
 ## Usage
 
@@ -52,7 +52,7 @@ The plugin uses the native libraries [libphonenumber](https://github.com/google/
 Add the following line to the top of the `Runner` target in your `ios/Podfile`
 ```ruby
 target 'Runner' do
-  pod 'PhoneNumberKit/PhoneNumberKitCore', :git => 'https://github.com/marmelroy/PhoneNumberKit', :tag => '3.5.10'
+  pod 'PhoneNumberKit/PhoneNumberKitCore', :git => 'https://github.com/marmelroy/PhoneNumberKit', :tag => '3.6.6'
   ...
 end
 ```

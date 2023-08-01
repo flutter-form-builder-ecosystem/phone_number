@@ -1,3 +1,7 @@
+## 2.0.2
+- Bumps PhoneNumberKit to v3.6.6
+- Bumps libphonenumber to v8.13.17
+
 ## 2.0.1
 - Update version on pubspec to depend on PhoneNumberKit 3.5.10
 - Update podspec to match package version 
