@@ -171,7 +171,7 @@ public class PhoneNumberPlugin implements FlutterPlugin, MethodCallHandler {
                 util.format(phoneNumber, PhoneNumberUtil.PhoneNumberFormat.INTERNATIONAL));
         put("national", util.format(phoneNumber, PhoneNumberUtil.PhoneNumberFormat.NATIONAL));
         put("country_code", String.valueOf(countryCode));
-        put("region_code", String.valueOf(util.getRegionCodeForCountryCode(countryCode)));
+        put("region_code", String.valueOf(util.getRegionCodeForNumber(phoneNumber)));
         put("national_number", String.valueOf(phoneNumber.getNationalNumber()));
       }};
     } catch (NumberParseException e) {
