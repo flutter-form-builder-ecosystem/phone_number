@@ -22,7 +22,7 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
-    namespace "flutter.plugins.phone_number"
+    namespace "com.julienvignali.phone_number"
 
     compileSdkVersion 33
 
