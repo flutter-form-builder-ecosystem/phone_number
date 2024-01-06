@@ -22,6 +22,8 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
+    namespace "com.julienvignali.phone_number"
+
     compileSdkVersion 33
 
     compileOptions {
