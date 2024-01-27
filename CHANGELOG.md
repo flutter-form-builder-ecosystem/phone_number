@@ -1,10 +1,11 @@
-## 2.0.2
+## 2.1.0
+
+- Deprecate package
+- Add Namespace to Support Gradle 8.0
+- Getting region code from number rather than country code
 - Bumps PhoneNumberKit to v3.6.6
 - Bumps libphonenumber to v8.13.17
-
-## 2.0.1
-- Update version on pubspec to depend on PhoneNumberKit 3.5.10
-- Update podspec to match package version 
+- Update podspec to match package version
 
 ## 2.0.0
 
